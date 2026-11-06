@@ -1,0 +1,632 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080c0f"><title>ANTERA | Agentisches Entscheidungssystem</title>
+<meta name="description" content="Konzept für ein agentisches KI-System, das Entscheidungen in Marketing und Vertrieb absichert: vor dem Start, nach dem Lauf und mitten im Deal.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aether Hive">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="ANTERA · Entscheidungen, die halten">
+<meta property="og:description" content="Konzept für ein agentisches KI-System, das Entscheidungen in Marketing und Vertrieb absichert: vor dem Start, nach dem Lauf und mitten im Deal.">
+<meta property="og:url" content="https://darealone.github.io/aether-hive/antera/">
+<meta property="og:image" content="https://darealone.github.io/aether-hive/antera/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="ANTERA – Konzept für ein agentisches KI-System in Entwicklung">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ANTERA · Entscheidungen, die halten">
+<meta name="twitter:description" content="Konzept für ein agentisches KI-System, das Entscheidungen in Marketing und Vertrieb absichert: vor dem Start, nach dem Lauf und mitten im Deal.">
+<meta name="twitter:image" content="https://darealone.github.io/aether-hive/antera/social-preview.png">
+<link rel="canonical" href="https://darealone.github.io/aether-hive/antera/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--bg:#080c0f;--panel:#0f181c;--panel2:#142227;--ink:#eef4f2;--muted:#9bacaa;--soft:#c3d1ce;--line:#21333a;--line2:#2e464e;--teal:#70c8bc;--teal2:#a3e3d9;--tealdim:#70c8bc1c;--coral:#f96c58;--amber:#ffc479;--red:#ff5f73;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--sans:Inter,"Avenir Next",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden}body{margin:0;background:radial-gradient(ellipse 60% 34% at 85% 0,#70c8bc14,transparent 70%),radial-gradient(ellipse 40% 30% at 0 40%,#f96c580a,transparent 70%),var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}button{font:inherit;cursor:pointer}:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--teal);color:#06211e;padding:8px 12px;border-radius:8px;z-index:50}.skip:focus{left:12px}
+.shell{width:min(1160px,calc(100% - 42px));margin:auto}
+.top{position:sticky;top:0;z-index:20;background:#080c0fe6;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;justify-content:space-between;min-height:66px;gap:20px}
+.brand{display:flex;align-items:center;text-decoration:none}.brand svg{height:25px;width:auto;display:block}
+.nav{display:flex;gap:20px}.nav a{text-decoration:none;font-size:12.5px;color:var(--muted);transition:color .15s}.nav a:hover{color:var(--teal)}
+.pill{font:10.5px var(--mono);letter-spacing:.12em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:6px 11px;white-space:nowrap}
+section{padding:96px 0;border-bottom:1px solid #ffffff0a;scroll-margin-top:40px}
+.kicker,.mono{font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.kicker:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-right:10px;vertical-align:1px}
+/* hero */
+.hero{min-height:88vh;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;position:relative}
+.hero:before{content:"";position:absolute;inset:0 -100vw;z-index:-1;background-image:linear-gradient(#ffffff06 1px,transparent 1px),linear-gradient(90deg,#ffffff06 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 50% 70% at 60% 40%,#000,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 50% 70% at 60% 40%,#000,transparent 75%)}
+h1{font-size:clamp(2.8rem,5.4vw,4.7rem);line-height:.98;letter-spacing:-.065em;margin:24px 0 30px}h1 span{color:#6f8582}h1 i{color:var(--coral);font-style:normal}
+.lead{font-size:clamp(1.08rem,1.9vw,1.36rem);color:var(--soft);max-width:640px;line-height:1.5;margin:0 0 16px}.lead.sm{font-size:16px;color:var(--muted)}
+.hero-footer{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:34px}
+.button{display:inline-block;text-decoration:none;border:1px solid var(--teal);background:var(--teal);color:#06211e;padding:12px 20px;border-radius:100px;font-weight:750;font-size:13px;transition:background .15s,transform .15s}.button:hover{background:var(--teal2);transform:translateY(-1px)}
+.button.alt{background:transparent;color:var(--ink);border-color:var(--line2)}.button.alt:hover{border-color:var(--teal);background:transparent}
+.fine{font-size:12px;color:var(--muted)}
+.hero-card{border:1px solid var(--line2);border-radius:22px;padding:24px;background:linear-gradient(160deg,#13232a,#0c1418);box-shadow:0 30px 80px -30px #000,0 0 0 1px #70c8bc0d inset}
+.hc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.hc-sub{font-size:13px;color:var(--muted);margin:0 0 14px}
+.hc-q{margin:0 0 14px;padding:14px 16px;border-radius:12px;background:#ffffff06;border-left:2px solid var(--coral)}.hc-q span{display:block;font:10px var(--mono);letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}.hc-q p{margin:0;font-size:15.5px;font-weight:650;line-height:1.35}
+.hc-row{display:grid;grid-template-columns:26px 1fr auto;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--soft);align-items:center}.hc-row small{font:10px var(--mono);letter-spacing:.06em;color:var(--muted)}
+.ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 12px var(--mono)}.ic.ok{background:var(--tealdim);color:var(--teal)}.ic.no{background:#ff5f7322;color:var(--red)}.ic.acc{background:#ffc47922;color:var(--amber)}.ic.hint{background:#ffffff10;color:var(--muted)}
+.hc-foot{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}.hc-foot b{color:var(--ink);font-weight:600}.hc-foot p{margin:0 0 6px}
+.status{display:inline-flex;padding:8px 13px;border-radius:99px;font:750 12px var(--mono);letter-spacing:.05em;border:1px solid;white-space:nowrap}
+.status.go{color:var(--teal);border-color:#70c8bc80;background:#70c8bc14}.status.blocked{color:var(--red);border-color:#ff5f7380;background:#ff5f7314}.status.review{color:var(--amber);border-color:#ffc47980;background:#ffc47914}.status.wait{color:var(--soft);border-color:var(--line2);background:#ffffff08}
+/* heads */
+.head{display:grid;grid-template-columns:180px 1fr;gap:25px;margin-bottom:30px}.head h2{font-size:clamp(2.1rem,4.8vw,4.1rem);line-height:1.04;letter-spacing:-.06em;margin:0;max-width:940px}
+.intro{max-width:760px;color:var(--muted);font-size:17px;margin:0 0 38px 205px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(155deg,#132126,#0d1518);padding:24px;min-width:0}.card h3{font-size:20px;line-height:1.25;letter-spacing:-.03em;margin:14px 0 8px}.card p{font-size:14px;color:var(--muted);margin:0}
+.number{font:11.5px var(--mono);letter-spacing:.06em;color:var(--teal)}
+.principle{font-size:clamp(1.5rem,3.8vw,3rem);font-weight:750;letter-spacing:-.05em;line-height:1.2;margin:56px 0 0}.principle span{color:var(--teal)}.principle em{color:var(--coral);font-style:normal}
+.turn{font-size:clamp(1.5rem,3.4vw,2.6rem);font-weight:750;letter-spacing:-.045em;line-height:1.2;margin:64px 0 0;max-width:960px}.turn span{color:var(--teal)}
+.subhead{font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:56px 0 16px}
+.notice{border-left:2px solid var(--coral);padding:8px 0 8px 19px;color:var(--muted);margin-top:24px;font-size:14px;max-width:920px}.notice strong{color:var(--ink)}
+/* problem */
+.room{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}
+.scene{border:1px solid #ff5f7344;border-radius:20px;padding:26px;background:linear-gradient(160deg,#170f13,#0c1316)}
+.scene .mono{color:var(--red)}.scene h3{margin:8px 0 16px;font-size:20px;letter-spacing:-.03em}
+.ln{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:12px 0;border-top:1px solid #ffffff10;font-size:15.5px}.ln b{font:11px var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase;font-weight:400;padding-top:4px}.ln span{color:var(--ink)}
+.ln.key span{font-weight:650;font-size:17px}
+.scene .foot{margin-top:14px;padding-top:14px;border-top:1px solid #ffffff10;font-size:13.5px;color:var(--muted)}.scene .foot b{color:var(--red);font-weight:600}
+.unseen{border:1px solid var(--line);border-radius:20px;padding:24px;background:var(--panel)}.unseen ol{margin:14px 0 0;padding:0;list-style:none;counter-reset:u;display:grid;gap:16px}.unseen li{counter-increment:u;display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:15.5px;color:var(--soft);line-height:1.4}.unseen li:before{content:counter(u,decimal-leading-zero);font:11px var(--mono);color:var(--coral);padding-top:4px}
+.crm{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.mo{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--panel)}.mo .when{font:10.5px var(--mono);letter-spacing:.1em;color:var(--teal);text-transform:uppercase}.mo h3{font-size:16px;margin:10px 0 6px;letter-spacing:-.02em;line-height:1.3}.mo p{margin:0;font-size:13px;color:var(--muted)}
+.mo.end{border-color:#ff5f7366;background:linear-gradient(160deg,#1c1418,#0f1619)}.mo.end .when{color:var(--red)}
+/* tests */
+.lp{border:1px solid var(--line);border-radius:18px;background:linear-gradient(155deg,#132126,#0d1518);padding:26px;display:flex;flex-direction:column}
+.lp .when{font:11px var(--mono);letter-spacing:.12em;color:var(--teal);text-transform:uppercase}.lp h3{font-size:22px;letter-spacing:-.035em;line-height:1.22;margin:14px 0 12px}.lp p{font-size:14px;color:var(--muted);margin:0;flex:1}
+.lp .out{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}.lp .out b{display:block;font:10.5px var(--mono);letter-spacing:.1em;color:var(--coral);font-weight:400;margin-bottom:5px}
+/* demo */
+.dealbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:18px;padding:18px 22px;background:var(--panel);margin-bottom:12px}
+.dealbar .meta{font-size:14.5px;color:var(--soft)}.dealbar .meta span{display:block;font:11px var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+.cnt{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.cnt .num{font:800 36px var(--sans);letter-spacing:-.04em;line-height:1}.cnt small{display:block;font-size:12px;color:var(--muted);max-width:190px;line-height:1.35}
+.dm{display:grid;grid-template-columns:360px 1fr;gap:12px;align-items:start}
+.map{display:grid;gap:12px}
+.grp{border:1px solid var(--line);border-radius:18px;padding:14px;background:var(--panel)}
+.grp.never{border-style:dashed;border-color:#ff5f7366;background:#ff5f7306}
+.grp-h{display:flex;justify-content:space-between;font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 4px 4px}
+.rb{width:100%;display:grid;grid-template-columns:10px 1fr auto;gap:12px;align-items:center;text-align:left;background:#0a1215;border:1px solid var(--line2);border-radius:12px;padding:12px 14px;color:var(--soft);margin-top:6px;transition:border-color .15s}
+.rb:hover{border-color:var(--teal)}.rb[aria-pressed=true]{border-color:var(--teal);background:#70c8bc12}
+.rb b{display:block;color:var(--ink);font-size:14px}.rb span{font-size:12px;color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:50%}.dot.hint{background:#5d7378}.dot.ok{background:var(--teal)}.dot.part{background:var(--amber)}.dot.no{background:var(--red)}
+.vt{font:700 9.5px var(--mono);letter-spacing:.08em;padding:4px 7px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);white-space:nowrap}.vt.hi{color:var(--coral);border-color:#f96c5866}
+.maplegend{display:flex;gap:14px;flex-wrap:wrap;font:11px var(--mono);color:var(--muted);padding:2px 6px}.maplegend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.rd{scroll-margin-top:80px;border:1px solid var(--line);border-radius:22px;padding:26px;background:radial-gradient(circle at 92% 0,#70c8bc10,transparent 45%),var(--panel);min-height:640px}
+.rd-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.rd-head h3{font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.05em;margin:8px 0 0;line-height:1.05}
+.vb{font:11px var(--mono);letter-spacing:.05em;color:var(--coral);border:1px solid #f96c5866;border-radius:99px;padding:7px 12px;background:#f96c5810}.vb.lo{color:var(--muted);border-color:var(--line2);background:transparent}
+.rq{margin:20px 0 16px;padding:16px 20px;border-radius:14px;background:#ffffff06;border-left:2px solid var(--coral)}.rq span{font:10.5px var(--mono);letter-spacing:.12em;color:var(--muted);text-transform:uppercase}.rq p{margin:6px 0 0;font-size:clamp(1.1rem,2vw,1.32rem);font-weight:650;letter-spacing:-.02em;color:var(--ink);line-height:1.35}.rq small{display:block;margin-top:6px;font-size:12px;color:var(--muted)}
+.eb{border-top:1px solid var(--line);padding:11px 0 2px;display:grid;grid-template-columns:112px 1fr;gap:12px}
+.eb>b{font:10.5px var(--mono);letter-spacing:.1em;font-weight:400;padding-top:2px}.eb.obs>b{color:var(--teal)}.eb.inf>b{color:var(--coral)}.eb.ver>b{color:var(--amber)}
+.eb ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}.eb li,.eb p{font-size:13.5px;color:var(--soft);margin:0}.eb i{display:block;font:11px var(--mono);color:var(--muted);font-style:normal;margin-top:2px}
+.conf{display:inline-block;margin-top:5px;font:10px var(--mono);letter-spacing:.06em;color:var(--muted);border:1px solid var(--line2);border-radius:99px;padding:2px 8px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:20px 0 0}
+.st{border:1px solid var(--line2);border-radius:10px;padding:9px 10px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center;line-height:1.25}
+.st i{width:18px;height:18px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font:700 10px var(--mono);font-style:normal;flex:none}
+.st.sd{color:var(--ink);border-color:#70c8bc66}.st.sd i{background:var(--teal);color:#06211e;border-color:var(--teal)}
+.st.cur{color:var(--ink);border-color:var(--teal);background:#70c8bc0c}.st.cur i{border-color:var(--teal);color:var(--teal)}
+.st.part{color:var(--amber);border-color:#ffc47966}.st.part i{background:var(--amber);color:#2a1a00;border-color:var(--amber)}
+.act{margin-top:12px;border:1px solid #70c8bc44;border-radius:16px;padding:20px;background:#0a1215}
+.act .mono{display:block}.act h4{margin:8px 0 10px;font-size:18px;letter-spacing:-.02em}.act>p{margin:0 0 6px;font-size:14px;color:var(--soft)}
+.act.warnbox{border-color:#ffc47966}.act.okbox{border-color:#70c8bc88}
+.dr-l{list-style:none;padding:0;margin:0;display:grid;gap:9px}.dr-l li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:13.5px;color:var(--soft)}.dr-l .m{font:700 11px var(--mono);width:20px;height:20px;border-radius:50%;display:grid;place-items:center}.m.ok{background:var(--tealdim);color:var(--teal)}.m.warn{background:#ffc47922;color:var(--amber)}.m.rec{background:#ffffff0c;color:var(--soft)}.m.no{background:#ff5f7322;color:var(--red)}.dr-l li i{display:block;font:10.5px var(--mono);color:var(--muted);margin-top:2px;font-style:normal}.dr-l li.warn{color:var(--amber)}.dr-l li.open{color:var(--red)}.dr-l li.new{color:var(--ink)}
+.dr-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.btn{border:1px solid var(--teal);background:var(--teal);color:#06211e;border-radius:99px;padding:9px 16px;font-size:12.5px;font-weight:750}.btn:disabled{opacity:.35;cursor:not-allowed}.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}.btn.warn{background:transparent;color:var(--amber);border-color:#ffc47980}
+.dr-note{font-size:12.5px;color:var(--muted);flex-basis:100%}
+.done{margin-top:20px;border:1px dashed var(--line2);border-radius:14px;padding:16px;color:var(--soft);font-size:14px}
+.num.hint{color:var(--muted)}.askq{font-size:15px!important;color:var(--ink)!important;font-weight:600;border-left:2px solid var(--amber);padding:6px 0 6px 14px;margin:10px 0 4px!important}.mode{margin-top:10px;font-size:13px;color:var(--soft);border:1px dashed var(--line2);border-radius:12px;padding:10px 14px}.mode b{font:10.5px var(--mono);letter-spacing:.1em;color:var(--amber);font-weight:400;margin-right:8px}.askbox{border:1px solid #ffc47955;border-radius:18px;padding:16px;background:var(--panel)}.askbox h4{margin:6px 0 10px;font-size:15px;letter-spacing:-.01em}.askbox ol{margin:0;padding-left:18px;display:grid;gap:9px}.askbox li{font-size:13px;color:var(--soft)}.askbox li b{display:block;font:10px var(--mono);color:var(--muted);letter-spacing:.08em;font-weight:400;margin-bottom:2px}.askbox p{font-size:12px;color:var(--muted);margin:10px 0 0}.reset{background:transparent;border:1px solid var(--line2);color:var(--muted);border-radius:99px;padding:7px 12px;font-size:12px}.reset:hover{color:var(--ink);border-color:var(--teal)}
+/* signals */
+.cases{display:grid;gap:10px}.case{display:grid;grid-template-columns:62px 1fr 210px;gap:20px;align-items:start;padding:20px 22px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}
+.case strong{font-size:17px}.case p{color:var(--muted);font-size:13.5px;margin:5px 0 0}.case .right{text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.case .src{font:10.5px var(--mono);color:var(--muted);letter-spacing:.04em}
+.mt{font:700 10px var(--mono);letter-spacing:.08em;padding:4px 9px;border-radius:99px;border:1px solid}.mt.rule{color:var(--teal);border-color:#70c8bc80;background:#70c8bc12}.mt.ai{color:var(--coral);border-color:#f96c5880;background:#f96c5812}
+/* pilot */
+.pilot{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}
+.pcard{border:1px solid #70c8bc55;border-radius:20px;padding:26px;background:radial-gradient(circle at 0 0,#70c8bc12,transparent 60%),var(--panel)}
+.pcard h3{margin:10px 0 16px;font-size:clamp(1.3rem,2.4vw,1.8rem);letter-spacing:-.04em;line-height:1.2}
+.pr{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:14px}.pr b{font:10.5px var(--mono);letter-spacing:.1em;color:var(--muted);font-weight:400;text-transform:uppercase;padding-top:2px}.pr span{color:var(--soft)}
+.pm{border:1px solid var(--line);border-radius:20px;padding:24px;background:var(--panel);display:flex;flex-direction:column;gap:14px}
+.pm .q{border-top:1px solid var(--line);padding-top:12px}.pm .q:first-of-type{border-top:0;padding-top:0}.pm .q strong{display:block;font-size:15.5px;margin:6px 0 4px}.pm .q p{margin:0;font-size:13px;color:var(--muted)}
+.expect{font-size:13px;color:var(--muted);border:1px dashed var(--line2);border-radius:12px;padding:12px 14px}
+.road{counter-reset:road}.roaditem{display:grid;grid-template-columns:65px 1fr 160px;gap:15px;padding:22px 0;border-bottom:1px solid var(--line)}.roaditem:before{counter-increment:road;content:counter(road,decimal-leading-zero);font:12px var(--mono);color:var(--coral)}
+.roaditem strong{font-size:18px}.roaditem p{margin:5px 0 0;color:var(--muted);font-size:13.5px;max-width:720px}.roaditem .acc{display:block;margin-top:8px;font-size:13px;color:var(--soft)}.roaditem .acc b{font:10.5px var(--mono);letter-spacing:.1em;color:var(--teal);font-weight:400;margin-right:6px}
+.roaditem em{font:10.5px var(--mono);letter-spacing:.05em;color:var(--teal);font-style:normal;text-align:right}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}.fit>div{border:1px solid var(--line);border-radius:18px;padding:22px;background:var(--panel)}.fit>div.no{border-style:dashed}
+.fit h3{margin:10px 0 10px;font-size:18px}.fit ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}.fit li{font-size:14px;color:var(--soft);padding-left:18px;position:relative}.fit li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--teal)}.fit .no li:before{background:var(--muted)}
+/* architecture */
+.arch-wrap{border:1px solid var(--line);border-radius:24px;background:radial-gradient(ellipse 60% 60% at 50% 20%,#70c8bc0c,transparent 70%),#0a1215;padding:30px 26px 22px;overflow:hidden}
+.arch-svg{width:100%;height:auto;display:block}
+.a-panel{fill:#0d171b;stroke:var(--line)}.a-item{fill:#122027;stroke:var(--line2);transition:stroke .35s,fill .35s}
+.a-node{fill:#112027;stroke-width:1.4;transition:stroke .35s,stroke-width .35s,fill .35s}.a-node.ai{stroke:#f96c5888}.a-node.code{stroke:#70c8bc88}.a-node.human{stroke:#c3d1ce66}.a-node.data{stroke:#9bacaa55}
+.a-node.on,.a-item.on{stroke-width:2.2;fill:#16303a}.a-node.code.on,.a-item.on{stroke:var(--teal2)}.a-node.ai.on{stroke:#ff9a8a;fill:#2a1c1c}.a-node.human.on,.a-node.data.on{stroke:#eef4f2}
+.a-zone{stroke-width:1;stroke-dasharray:3 5}.a-zone.ai{stroke:#f96c5866;fill:#f96c5806}.a-zone.det{stroke:#70c8bc55;fill:#70c8bc05}
+.a-lbl{fill:var(--muted);font:10px var(--mono);letter-spacing:.12em}.a-lbl.ai{fill:var(--coral)}.a-lbl.det{fill:var(--teal)}.a-lbl.n{letter-spacing:.06em}
+.a-h{fill:var(--ink);font:700 11px var(--mono);letter-spacing:.09em}.a-s{fill:var(--muted);font:12px var(--sans)}.a-t{fill:var(--ink);font:12px var(--sans)}.a-s2{fill:var(--muted);font:10.5px var(--sans)}
+.a-chip{fill:#ffffff07;stroke:var(--line2)}.a-ct{fill:var(--soft);font:11px var(--sans)}.a-cm{font:700 10px var(--mono);letter-spacing:.06em}
+.a-wire{stroke:var(--teal);stroke-width:1.4;fill:none;opacity:.6}.a-wire.c{stroke:var(--coral);opacity:.8}.a-wire.m{stroke:var(--muted);opacity:.5}
+.a-dash{stroke-dasharray:5 6}.a-ico{fill:none;stroke:var(--teal);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.a-bg{fill:#0a1215}
+.pk-glow{opacity:.28}
+@media(prefers-reduced-motion:no-preference){.a-flow{stroke-dasharray:4 7;animation:flow 1.6s linear infinite}.a-dash.mv{animation:flow 2.4s linear infinite}@keyframes flow{to{stroke-dashoffset:-22}}.pk-glow{animation:pulse 1.2s ease-in-out infinite}@keyframes pulse{50%{opacity:.08}}}
+.arch-cap{display:flex;gap:12px;align-items:center;margin-top:16px;font-size:14px;color:var(--soft);min-height:24px}
+.arch-cap .live{flex:none;font:10px var(--mono);letter-spacing:.12em;color:var(--coral);border:1px solid #f96c5866;border-radius:99px;padding:3px 9px}
+.arch-cap .live:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-right:6px;vertical-align:1px}
+#capText{transition:opacity .25s}
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted)}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}
+.arch-stack{display:none}
+.as-step{border:1px solid var(--line2);border-radius:14px;padding:16px;background:var(--panel);transition:border-color .35s,background .35s,transform .35s}.as-step.ai{border-color:#f96c5888}.as-step.code{border-color:#70c8bc88}
+.as-step.on{border-color:var(--teal2);background:#16303a;transform:translateX(4px)}.as-step.ai.on{border-color:#ff9a8a;background:#2a1c1c}
+.as-step b{display:block;font:700 11.5px var(--mono);letter-spacing:.1em;margin-bottom:5px}.as-step p{margin:0;font-size:13px;color:var(--muted)}
+.as-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.as-chips span{font-size:11px;border:1px solid var(--line2);border-radius:99px;padding:4px 9px;color:var(--soft)}
+.as-arrow{text-align:center;color:var(--teal);font:12px var(--mono);padding:6px 0}
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tool{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--panel)}.tool code{font:12.5px var(--mono);color:var(--teal);word-break:break-word}.tool p{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.stack{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel)}
+.srow{display:grid;grid-template-columns:170px 1.25fr 1fr 140px;gap:18px;padding:15px 20px;border-top:1px solid var(--line);font-size:13.5px;align-items:start}
+.srow.h{border-top:0;background:#ffffff05;font:10.5px var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.srow b{color:var(--ink);font-weight:650}.srow span{color:var(--muted)}.srow em{font:11px var(--mono);font-style:normal;color:var(--teal)}
+.mx{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mxc{border:1px solid var(--line);border-radius:15px;padding:18px;background:var(--panel)}.mxc strong{display:block;font-size:15.5px;margin:10px 0 6px}.mxc p{margin:0;font-size:12.5px;color:var(--muted)}
+/* team */
+.origin{border-left:2px solid var(--coral);padding:6px 0 6px 22px;font-size:clamp(1.12rem,2vw,1.36rem);color:var(--soft);max-width:820px;margin:0 0 44px 205px;line-height:1.5}
+.patterns{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pat{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.p-top{padding:24px 24px 20px;flex:1}.p-top h3{font-size:21px;letter-spacing:-.035em;margin:12px 0 8px;line-height:1.25}.p-top p{margin:0;color:var(--muted);font-size:14px}.p-top .number{color:var(--coral)}
+.p-fix{padding:16px 24px 20px;border-top:1px dashed var(--line2);background:#70c8bc08;font-size:14px;color:var(--soft)}.p-fix b{display:block;font:10.5px var(--mono);letter-spacing:.1em;color:var(--teal);margin-bottom:6px;font-weight:400}
+.northstar{margin-top:14px;border:1px solid #70c8bc55;border-radius:20px;padding:28px;background:radial-gradient(circle at 0 0,#70c8bc14,transparent 60%),var(--panel);display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.northstar h3{margin:12px 0 0;font-size:clamp(1.4rem,2.6vw,2.1rem);letter-spacing:-.04em;line-height:1.2}
+.northstar ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.northstar li{font-size:13.5px;color:var(--soft);padding-left:18px;position:relative}.northstar li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.footer{padding:120px 0;text-align:center}.footer .kicker{display:inline-block}.footer h2{font-size:clamp(2.8rem,6.6vw,6rem);letter-spacing:-.07em;line-height:1;margin:22px auto;max-width:980px}.footer h2 span{color:#6f8582}.footer p{color:var(--muted)}
+.footer .mark{height:42px;width:auto;margin:0 auto 26px;display:block}
+@media(max-width:1060px){.crm{grid-template-columns:repeat(3,1fr)}.mx{grid-template-columns:repeat(3,1fr)}.dm{grid-template-columns:1fr}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:80px}.hero-card{max-width:540px}.g4{grid-template-columns:repeat(2,1fr)}.tools{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.head{grid-template-columns:1fr;gap:10px}.intro,.origin{margin-left:0}.g3,.room,.patterns,.northstar,.fit,.pilot{grid-template-columns:1fr}.nav{display:none}.srow{grid-template-columns:1fr 1fr;gap:6px 18px}.srow.h{display:none}}
+@media(max-width:820px){.arch-svg{display:none}.arch-stack{display:block}.arch-wrap{padding:18px}}
+@media(max-width:650px){section{padding:68px 0}.g2,.g4,.crm,.tools,.mx,.srow{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.case{grid-template-columns:1fr;gap:8px}.case .right{text-align:left;align-items:flex-start;flex-direction:row;flex-wrap:wrap}.roaditem{grid-template-columns:35px 1fr}.roaditem em{grid-column:2;text-align:left}.ln,.eb,.pr{grid-template-columns:1fr;gap:2px}.rd,.scene,.pcard{padding:19px}.shell{width:calc(100% - 32px)}.pill{display:none}}
+@media(prefers-reduced-motion:no-preference){.card,.lp,.mxc{transition:transform .2s,border-color .2s}.card:hover,.lp:hover,.mxc:hover{transform:translateY(-3px);border-color:var(--line2)}}
+@media print{.top,.hero-footer,.hero:before,.dr-act,.reset,.arch-cap{display:none}.hero,.dm{grid-template-columns:1fr}body{background:#fff;color:#000}p,.lead,.intro{color:#333!important}section{break-inside:avoid}}
+
+/* v5: failures */
+.fail{border:1px solid var(--line);border-radius:18px;background:linear-gradient(155deg,#132126,#0d1518);padding:24px;display:flex;flex-direction:column}
+.fail .fx{font:11px var(--mono);letter-spacing:.12em;color:var(--coral)}.fail h3{font-size:21px;letter-spacing:-.035em;line-height:1.25;margin:14px 0 10px}.fail p{margin:0;font-size:14px;color:var(--muted);flex:1}
+.fail .lnk{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font:10.5px var(--mono);letter-spacing:.1em;color:var(--teal)}
+/* v5: layer stack */
+.layers{display:grid;gap:10px}
+.layer{display:grid;grid-template-columns:1.25fr 1fr 1fr .7fr;gap:22px;align-items:start;border:1px solid var(--line);border-radius:18px;padding:22px 24px;background:var(--panel)}
+.layer.top{border-color:#f96c5888;background:linear-gradient(160deg,#1b1517,#0f181c)}
+.layer.base{border-style:dashed;background:transparent}
+.layer .lv{font:11px var(--mono);letter-spacing:.12em;color:var(--teal)}.layer.top .lv{color:var(--coral)}.layer.base .lv{color:var(--muted)}
+.layer h3{margin:8px 0 0;font-size:19px;letter-spacing:-.03em;line-height:1.28}
+.layer .col b{display:block;font:10px var(--mono);letter-spacing:.1em;color:var(--muted);font-weight:400;margin-bottom:6px}.layer .col p{margin:0;font-size:13.5px;color:var(--soft)}
+.newtag{display:inline-block;margin-top:12px;font:700 10px var(--mono);letter-spacing:.08em;color:var(--coral);border:1px solid #f96c5866;border-radius:99px;padding:4px 9px;background:#f96c5810}
+/* v5: autonomy */
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.rung{border:1px solid var(--line);border-radius:15px;padding:18px;background:var(--panel);position:relative}
+.rung strong{display:block;font-size:17px;margin:10px 0 6px;letter-spacing:-.02em}.rung p{margin:0;font-size:13px;color:var(--muted)}
+.rung:not(:last-child):after{content:"→";position:absolute;right:-8px;top:50%;transform:translate(50%,-50%);color:var(--teal);font:12px var(--mono);z-index:1}
+.rung.stop{border-color:#ff5f7366;background:linear-gradient(160deg,#1c1418,#0f1619)}.rung.stop .number{color:var(--red)}
+.auto{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.au{border:1px solid #70c8bc55;border-radius:18px;padding:24px;background:var(--panel)}.au.no{border-color:#ff5f7355;border-style:dashed;background:#ff5f7305}
+.au .kicker{display:block;margin-bottom:14px}.au.no .kicker{color:var(--red)}
+.au ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.au li{font-size:14.5px;color:var(--soft);padding-left:22px;position:relative}
+.au li:before{content:"✓";position:absolute;left:0;top:0;color:var(--teal);font:700 12px var(--mono)}.au.no li:before{content:"✕";color:var(--red)}
+/* v5: layer 1 chain */
+.links{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lk{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--panel);display:flex;flex-direction:column;gap:10px}
+.lk-top{display:flex;justify-content:space-between;gap:8px;font:10.5px var(--mono);letter-spacing:.08em;color:var(--muted)}.lk-top b{color:var(--teal);font-weight:400}
+.lk h3{font-size:17px;letter-spacing:-.025em;line-height:1.3;margin:0;flex:1}
+.st2{align-self:flex-start;font:700 10px var(--mono);letter-spacing:.08em;padding:5px 9px;border-radius:99px;border:1px solid #70c8bc80;color:var(--teal);background:#70c8bc12}
+.lk.br{border-color:#ff5f7366;background:linear-gradient(160deg,#1c1418,#0f1619)}.lk.br .lk-top b{color:var(--red)}.lk.br .st2{border-color:#ff5f7380;color:var(--red);background:#ff5f7314}
+.blocked-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin-top:44px}
+.blocked-wrap h3{font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:-.045em;line-height:1.15;margin:0 0 14px}.blocked-wrap h3 span{color:var(--red)}
+.blocked-wrap>div>p{color:var(--muted);font-size:16px;margin:0}
+.hc-big{font-size:20px;letter-spacing:-.03em;line-height:1.25;font-weight:700;margin:0 0 12px}
+/* v5: layer 2 funnel demo */
+.diag{display:grid;grid-template-columns:330px 1fr;gap:16px;align-items:start}
+.scen{display:grid;gap:8px}
+.scen button{text-align:left;background:#0a1215;border:1px solid var(--line2);border-radius:14px;padding:15px 17px;color:var(--soft);transition:border-color .15s,background .15s}
+.scen button:hover{border-color:var(--teal)}
+.scen button b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:3px}.scen button span{font-size:12.5px;color:var(--muted)}
+.scen button[aria-pressed=true]{border-color:var(--teal);background:#70c8bc12}.scen button[aria-pressed=true] b{color:var(--teal)}
+.scen .hint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
+.screen{border:1px solid var(--line);border-radius:22px;padding:28px;background:radial-gradient(circle at 92% 0,#70c8bc12,transparent 45%),var(--panel);min-height:600px}
+.screen-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.big{font-size:clamp(2rem,4vw,3.1rem);line-height:1.05;letter-spacing:-.055em;margin:22px 0 12px}.explain{font-size:15.5px;color:var(--soft);max-width:620px;margin:0}
+.funnel{display:grid;gap:4px;margin:22px 0 8px}
+.fr{display:grid;grid-template-columns:104px 1fr 70px 58px;gap:12px;align-items:center;padding:8px 10px;border-radius:10px;font-size:13px}
+.fr .lab{color:var(--soft)}.fr .bar{height:10px;background:#ffffff08;border-radius:99px;overflow:hidden}.fr .bar i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:width .5s ease}
+.fr .n{text-align:right;font:600 13px var(--mono)}.fr .pct{text-align:right;font:11px var(--mono);color:var(--muted)}
+.fr.loss{background:#ff5f7312;box-shadow:inset 0 0 0 1px #ff5f7355}.fr.loss .pct{color:var(--red);font-weight:700}.fr.loss .bar i{background:var(--red)}
+.fr.unk .bar i{background:repeating-linear-gradient(90deg,#9bacaa55 0 6px,transparent 6px 11px)}.fr.unk .n,.fr.unk .lab{color:var(--muted)}
+.fr.open .n{color:var(--amber)}
+.facts{display:grid;gap:9px;margin:20px 0 0}.fact{display:grid;grid-template-columns:130px 1fr;gap:12px;border-top:1px solid var(--line);padding-top:11px;font-size:13.5px}.fact b{color:#859a97;font-weight:500}.fact span{color:#dfe9e6}
+.fact.next span{color:var(--ink);font-weight:550}
+.handoff{margin-top:20px;background:var(--coral);border-color:var(--coral);color:#2a0c06}.handoff:hover{background:#ff9a8a}
+/* v5: signals compact */
+.sg{border:1px solid var(--line);border-radius:15px;padding:18px;background:var(--panel)}.sg-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.sg strong{display:block;font-size:15.5px;margin:12px 0 6px}.sg p{margin:0;font-size:13px;color:var(--muted)}
+.mt{font:700 10px var(--mono);letter-spacing:.08em;padding:4px 9px;border-radius:99px;border:1px solid}.mt.rule{color:var(--teal);border-color:#70c8bc80;background:#70c8bc12}.mt.ai{color:var(--coral);border-color:#f96c5880;background:#f96c5812}
+.tools.tools4{grid-template-columns:repeat(4,1fr)}
+#capTag.a{color:var(--coral)}#capTag.b{color:var(--teal);border-color:#70c8bc66}#capTag.b:before{background:var(--teal)}
+@media(max-width:1060px){.layer{grid-template-columns:1fr 1fr}.tools.tools4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:980px){.diag{grid-template-columns:1fr}.scen{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.links,.ladder{grid-template-columns:repeat(2,1fr)}.rung:after{display:none}.auto,.blocked-wrap{grid-template-columns:1fr}}
+@media(max-width:650px){.layer,.links,.ladder,.scen,.tools.tools4{grid-template-columns:1fr}.fr{grid-template-columns:84px 1fr 56px 46px;gap:8px;padding:7px 6px}.fact{grid-template-columns:92px 1fr}.screen{padding:19px}}
+</style></head><body><a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="top"><div class="shell topin"><a class="brand" href="#top" aria-label="ANTERA – zum Seitenanfang"><svg viewBox="70 50 1060 200" role="img" aria-hidden="true"><path fill="#70c8bc" d="M474.212 198.254 L474.212 97.083 L512.057 133.861 L502.156 140.156 L487.346 126.148 L487.346 198.254 Z M322.859 198.73 L381.942 97.728 L441.757 198.73 L427.949 198.73 L381.965 120.947 L337.097 198.73 Z M965.029 198.73 L1024.112 97.728 L1083.927 198.73 L1070.119 198.73 L1024.135 120.947 L979.267 198.73 Z M553.644 173.79 L553.644 101.609 L566.778 101.609 L566.778 202.917 L529.638 166.962 L539.792 160.486 Z M730.488 198.095 L730.488 103.147 L808.003 103.147 L808.003 112.995 L743.484 112.995 L743.484 187.295 L808.003 187.295 L808.003 198.095 Z M598.151 114.105 L598.151 103.623 L696.739 103.623 L696.739 114.105 Z M842.06 139.497 L842.06 101.609 L887.048 101.609 C893.863 101.609 899.871 102.12 905.07 103.141 C909.562 103.865 913.748 105.369 917.609 107.646 C921.467 109.896 924.302 112.551 926.061 115.567 L926.092 115.62 C927.849 118.762 928.735 122.578 928.735 127.008 C928.735 133 926.067 138.563 920.825 143.477 L920.794 143.506 L920.761 143.535 C917.354 146.562 912.834 149.059 907.219 151.019 L935.717 198.412 L920.694 198.412 L888.092 144.039 L893.568 143.825 C896.053 143.727 898.541 143.24 901.042 142.36 L901.042 142.36 C901.417 142.216 903.678 141.297 907.825 139.603 C910.15 137.737 911.917 135.865 913.135 133.977 C915.311 130.203 915.559 124.657 913.171 120.921 L913.13 120.855 L913.091 120.788 C912.078 119.027 910.474 117.6 908.222 116.452 L908.08 116.379 L907.945 116.292 C906.089 115.094 903.093 114.149 898.934 113.449 L898.857 113.436 L898.781 113.42 C895.015 112.588 890.662 112.173 885.72 112.173 L855.056 112.173 L855.056 139.497 Z M641.654 198.412 L641.654 128.841 L654.65 128.841 L654.65 198.412 Z M757.046 152.981 L757.046 142.975 L801.701 142.975 L801.701 152.981 Z M842.06 198.412 L842.06 156.523 L855.056 156.523 L855.056 198.412 Z"/><path fill="#f96c58" d="M1077.172 118.583 C1077.172 106.709 1086.798 97.083 1098.672 97.083 C1110.547 97.083 1120.173 106.709 1120.173 118.583 C1120.173 130.458 1110.547 140.084 1098.672 140.084 C1086.798 140.084 1077.172 130.458 1077.172 118.583 Z"/><path fill="#f96c58" d="M79.827 101.993 C79.827 78.686 98.72 59.793 122.027 59.793 L218.041 59.793 C241.348 59.793 260.241 78.686 260.241 101.993 L260.241 198.007 C260.241 221.314 241.348 240.207 218.041 240.207 L122.027 240.207 C98.72 240.207 79.827 221.314 79.827 198.007 Z M220.398 83.405 L202.423 91.304 C202.373 110.35 199.379 143.545 190.234 160.469 C188.568 163.553 186.726 166.68 184.39 169.316 C180.715 173.464 176.342 177.52 171.007 179.395 C158.675 183.729 145.546 177.893 140.718 165.669 C134.948 151.062 143.99 133.595 160.266 132.431 C171.893 131.6 182.581 138.137 188.766 147.708 C192.13 138.311 194.281 128.7 195.176 118.747 C195.323 117.111 196.055 109.655 195.474 108.572 C194.268 106.323 191.002 104.576 188.891 103.298 C181.747 98.973 171.122 96.726 162.83 96.622 C130.065 96.213 104.596 121.932 103.338 154.294 C102.257 182.086 121.337 208.599 148.724 214.963 C155.713 216.587 162.946 217.036 170.074 216.141 C172.063 215.892 174.002 215.399 175.965 215.019 C182.401 213.775 188.75 210.618 194.147 206.973 C220.818 188.957 232.369 152.065 235.608 121.684 C236.312 115.084 236.574 97.948 236.774 91.321 Z M235.412 151.662 C234.921 155.418 233.53 159.182 232.345 162.769 C226.427 180.684 216.499 197.513 200.764 208.427 L200.741 213.518 L235.901 213.529 L235.834 151.662 Z"/></svg></a><nav class="nav" aria-label="Seitennavigation"><a href="#why">Problem</a><a href="#stack">System</a><a href="#autonomy">Autonomie</a><a href="#l1">Ebenen</a><a href="#system">Architektur</a><a href="#build">Umsetzung</a></nav><span class="pill">KONZEPT · IN ENTWICKLUNG</span></div></header>
+<main id="main">
+
+<section class="hero shell" id="top"><div><div class="kicker">Konzept · Agentisches KI-System in Entwicklung</div><h1>Entscheidungen, die halten<i>.</i> <span>Auch dort, wo du nicht bist.</span></h1><p class="lead">Marketing und Vertrieb entscheiden täglich über Budget, Kampagnen und Deals, meist auf Basis von Aktivitätszahlen und Annahmen. ANTERA ist ein agentisches System, das diese Entscheidungen absichert, vor dem Start, nach dem Lauf und mitten im Deal.</p><p class="lead sm">Der Agent arbeitet selbstständig: Er beobachtet, untersucht, findet Ursachen und bereitet Antworten vor. Entscheiden, starten und versenden bleiben beim Menschen. Die Regel dahinter: Darf stoppen, nie starten.</p><div class="hero-footer"><a class="button" href="#stack">Das System verstehen ↓</a><a class="button alt" href="#l2">Live-Demos testen</a></div><p class="fine" style="margin-top:16px">Diese Seite erklärt Idee und Architektur. Die Demos zeigen den geplanten Ablauf mit fiktiven Daten.</p></div>
+<aside class="hero-card" aria-label="Beispiel einer Wochenübersicht"><div class="hc-top"><span class="mono">Entscheidungskarte · KW 45</span><span class="status review">3 FÜR DICH</span></div><p class="hc-sub">Was diese Woche einen Menschen braucht. Alles andere beobachtet ANTERA selbst.</p>
+<div class="hc-row"><span class="ic no">✕</span>Kampagne Q4b · Pflichtfeld fehlt<small>AUTOMATISCH PAUSIERT</small></div>
+<div class="hc-row"><span class="ic acc">!</span>Kampagne Q3 · Verlust-Diagnose<small>NACH DEM ANGEBOT</small></div>
+<div class="hc-row"><span class="ic hint">?</span>Deal Maschinenbauer · Betriebsrat<small>HINWEIS</small></div>
+<div class="hc-row"><span class="ic ok">✓</span>Kampagne Q4 · Launch-Check<small>GO</small></div>
+<div class="hc-foot"><p><b>Ebene 1</b> hat gestoppt, <b>Ebene 2</b> hat eine Ursache gefunden, <b>Ebene 3</b> sieht eine stille Vetorolle.</p><p style="margin:0"><b>Wieder starten</b> darf nur ein Mensch.</p></div></aside></section>
+
+<section id="why"><div class="shell"><div class="head"><div class="kicker">01 / Das Problem</div><h2>Drei Arten, wie gute Entscheidungen scheitern.</h2></div><p class="intro">Sie sehen von außen gleich aus: Budget weg, keine Kunden, viele Meetings danach. Aber sie haben drei verschiedene Ursachen, und jede braucht eine andere Antwort.</p>
+<div class="grid g3"><article class="fail"><div class="fx">01 · KAPUTT</div><h3>Der Mechanismus funktioniert nicht.</h3><p>Die Kampagne geht am Freitag live. Ein Pflichtfeld erreicht das CRM nicht. Bemerkt wird es am Montag, als das Budget schon verbraucht ist.</p><span class="lnk">→ EBENE 1 · VERHINDERN</span></article>
+<article class="fail"><div class="fx">02 · BLIND</div><h3>Alles im Plan, null Deals.</h3><p>Traffic wie geplant, einige MQLs, wenige SQLs. Kein einziger Kunde. Im Performance-Meeting fragt niemand, warum.</p><span class="lnk">→ EBENE 2 · VERSTEHEN</span></article>
+<article class="fail"><div class="fx">03 · UNSICHTBAR</div><h3>Der Deal stirbt ohne dich.</h3><p>Neun Monate läuft alles gut. Dann stellt der Betriebsrat im Lenkungskreis eine Frage, auf die der Champion keine Antwort hat. Im CRM steht später „Kein Budget“.</p><span class="lnk">→ EBENE 3 · TRAGBAR MACHEN</span></article></div>
+<p class="turn">Drei Fehler, eine Ursache: <span>Entscheidungen beruhen auf Annahmen, die niemand prüft.</span></p></div></section>
+
+<section id="stack"><div class="shell"><div class="head"><div class="kicker">02 / Das System</div><h2>Ein Fundament. Drei Ebenen. Ein Agent.</h2></div><p class="intro">Alle Ebenen teilen dieselbe Evidenzbasis und dieselben Regeln. Jede beantwortet eine eigene Frage zu einem anderen Zeitpunkt. Die dritte Ebene ist neu: Sie erkennt, wenn Entscheidungen außerhalb deiner Sichtweite fallen.</p>
+<div class="layers">
+<div class="layer top"><div><div class="lv">EBENE 3 · TRAGBAR MACHEN</div><h3>Übersteht die Entscheidung den Raum, in dem du nicht bist?</h3><span class="newtag">NEUE EBENE</span></div><div class="col"><b>WAS DER AGENT TUT</b><p>Erkennt stille Vetorollen wie Betriebsrat, Finanzen oder IT. Entwirft tragbare Antworten aus freigegebenen Aussagen.</p></div><div class="col"><b>ERGEBNIS</b><p>Entscheidungs-Landkarte, Argument-Pakete für den Champion</p></div><div class="col"><b>WANN</b><p>Im laufenden Deal, vor dem Angebot</p></div></div>
+<div class="layer"><div><div class="lv">EBENE 2 · VERSTEHEN &amp; LERNEN</div><h3>Wo und warum haben wir sie verloren, und was ändern wir?</h3></div><div class="col"><b>WAS DER AGENT TUT</b><p>Untersucht jeden Lauf bis zum Deal, liest Verlustgründe und Gespräche, vergleicht mit gewonnenen Deals.</p></div><div class="col"><b>ERGEBNIS</b><p>Verlust-Diagnose mit Beleg, Empfehlung für den nächsten Lauf</p></div><div class="col"><b>WANN</b><p>Während und nach jedem Lauf</p></div></div>
+<div class="layer"><div><div class="lv">EBENE 1 · VERHINDERN</div><h3>Kann es funktionieren und sein Ziel beweisen?</h3></div><div class="col"><b>WAS DER AGENT TUT</b><p>Prüft die Kette vom Klick bis zum Deal, vor dem Start und danach täglich. Bricht sie, stoppt er die Ausgaben.</p></div><div class="col"><b>ERGEBNIS</b><p>Launch-Check: GO oder BLOCKED, mit Grund und Owner</p></div><div class="col"><b>WANN</b><p>Vor dem Start, dann laufend</p></div></div>
+<div class="layer base"><div><div class="lv">FUNDAMENT</div><h3>Was zählt als qualifiziert, als Opportunity, als Erfolg?</h3></div><div class="col"><b>WAS DAS SYSTEM HÄLT</b><p>Versionierte Begriffe, ein Evidenz-Graph über Kampagnen, Leads, Deals und Personen, ein Controller mit festen Regeln.</p></div><div class="col"><b>ERGEBNIS</b><p>Eine gemeinsame Wahrheit für Marketing und Vertrieb</p></div><div class="col"><b>WANN</b><p>Einmal festlegen, bewusst ändern</p></div></div>
+</div>
+<p class="principle"><em>KI</em> findet die Ursachen. <span>Menschen</span> entscheiden. Code setzt Grenzen.</p></div></section>
+
+<section id="autonomy"><div class="shell"><div class="head"><div class="kicker">03 / Autonomie</div><h2>Mehr Autonomie. Klare Grenzen.</h2></div><p class="intro">ANTERA wartet nicht, bis jemand ein Dashboard öffnet. Der Agent arbeitet selbstständig, aber nur in eine Richtung: Er darf schützen, nie riskieren. Alles, was Geld ausgibt, Kunden erreicht oder Regeln ändert, bleibt beim Menschen.</p>
+<div class="ladder"><div class="rung"><div class="number">STUFE 1</div><strong>Beobachten</strong><p>Rund um die Uhr, über alle Kampagnen und Deals.</p></div><div class="rung"><div class="number">STUFE 2</div><strong>Untersuchen</strong><p>Startet Analysen selbst, sobald ein Signal auftaucht.</p></div><div class="rung"><div class="number">STUFE 3</div><strong>Vorbereiten</strong><p>Diagnosen, Entwürfe und Aufgaben mit benanntem Owner.</p></div><div class="rung stop"><div class="number">STUFE 4</div><strong>Stoppen</strong><p>Pausiert Ausgaben, wenn ein Pflichtcheck bricht. Per Regel, nicht per Modell.</p></div></div>
+<div class="auto"><div class="au"><div class="kicker">ANTERA darf selbst</div><ul><li>die Prüfkette täglich neu ausführen</li><li>Untersuchungen starten, wenn Zahlen kippen</li><li>Verlustgründe mit Gesprächen abgleichen</li><li>Antworten aus der Claim-Bibliothek entwerfen</li><li>Aufgaben anlegen und Owner benachrichtigen</li><li>Ausgaben pausieren, wenn die Kette bricht</li></ul></div>
+<div class="au no"><div class="kicker">ANTERA darf nie</div><ul><li>eine Kampagne starten oder neu starten</li><li>Budget erhöhen oder umverteilen</li><li>etwas an Kunden senden</li><li>Begriffe, Regeln oder Profile ändern</li><li>Menschen bewerten oder ranken</li><li>Unbelegtes als Fakt darstellen</li></ul></div></div>
+<p class="principle" style="margin-top:44px">Darf <span>stoppen</span>. Nie <em>starten</em>.</p></div></section>
+
+<section id="l1"><div class="shell"><div class="head"><div class="kicker">04 / Ebene 1 · Verhindern</div><h2>Ohne verbundene Kette gibt es keine Antwort.</h2></div><p class="intro">Bevor Geld fließt, prüft ANTERA jede Verbindung vom Klick bis zum Deal. Nicht nur, ob die Kampagne funktioniert, sondern ob sich ihr Ergebnis überhaupt nachweisen lässt. Nach dem Start läuft die Prüfung täglich weiter.</p>
+<div class="links"><div class="lk"><div class="lk-top"><span>KLICK → FORMULAR</span><b>P01</b></div><h3>Kommt der Klick am richtigen Ziel an?</h3><span class="st2">VERBUNDEN</span></div>
+<div class="lk"><div class="lk-top"><span>FORMULAR → CRM</span><b>P02</b></div><h3>Erreichen alle Pflichtfelder das CRM?</h3><span class="st2">VERBUNDEN</span></div>
+<div class="lk"><div class="lk-top"><span>CRM → VERTRIEB</span><b>P03</b></div><h3>Ist jeder Lead seiner Kampagne zugeordnet und beim Vertrieb?</h3><span class="st2">VERBUNDEN</span></div>
+<div class="lk br"><div class="lk-top"><span>VERTRIEB → DEAL</span><b>P04</b></div><h3>Wird erfasst, warum ein Deal gewonnen oder verloren wurde?</h3><span class="st2">BRUCH</span></div></div>
+<div class="blocked-wrap"><div><h3>BLOCKED heißt nicht nur: Das funktioniert nicht. <span>Es heißt: Ihr würdet Geld ausgeben und nichts daraus lernen.</span></h3><p>Bricht eine Verbindung während der Laufzeit, pausiert ANTERA die Ausgaben automatisch und benachrichtigt den Owner. Wieder starten darf nur ein Mensch. Ein bestandener Check ist kein Erfolgsversprechen, nur die Voraussetzung, aus dem Ergebnis zu lernen.</p></div>
+<aside class="hero-card" aria-label="Beispiel Launch-Check"><div class="hc-top"><span class="mono">Launch-Check · Kampagne Q4b</span><span class="status blocked">BLOCKED</span></div><p class="hc-big">Diese Kampagne kann ihr Ziel nicht nachweisen.</p>
+<div class="hc-row"><span class="ic ok">✓</span>CTA und Formular erreichbar<small>P01</small></div><div class="hc-row"><span class="ic no">✕</span>Pflichtfeld „Unternehmensgröße“ fehlt im CRM<small>P02</small></div><div class="hc-row"><span class="ic ok">✓</span>Leads der Kampagne zugeordnet<small>P03</small></div><div class="hc-row"><span class="ic acc">!</span>Attributionslücke bekannt und akzeptiert<small>P04</small></div>
+<div class="hc-foot"><p><b>Automatisch:</b> Ausgaben pausiert, Owner benachrichtigt.</p><p style="margin:0"><b>Nächster Schritt:</b> Feldmapping korrigieren, Prüfkette neu ausführen. Owner: Marketing Ops.</p></div></aside></div></div></section>
+
+<section id="l2"><div class="shell"><div class="head"><div class="kicker">05 / Ebene 2 · Verstehen</div><h2>Warum hat niemand gekauft?</h2></div><p class="intro">Performance-Meetings enden oft bei Aktivität: Traffic wie geplant, einige MQLs, wenige SQLs. Die Zahl, für die eine Kampagne gestartet wird, steht nicht auf der Folie. ANTERA misst jeden Lauf bis zum Deal und sagt ehrlich, wie sicher die Antwort ist. Wähle einen Fall.</p>
+<div class="diag"><div class="scen" role="group" aria-label="Kampagnenfall wählen">
+<button data-s="audience" aria-pressed="true"><b>Falsche Zielgruppe</b><span>Viele Leads, kaum passende</span></button>
+<button data-s="room" aria-pressed="false"><b>Verloren nach dem Angebot</b><span>Gute Leads, Absagen ohne echten Grund</span></button>
+<button data-s="broken" aria-pressed="false"><b>Kette unterbrochen</b><span>Daten fehlen auf dem Weg</span></button>
+<button data-s="early" aria-pressed="false"><b>Zu früh für ein Urteil</b><span>Läuft erst seit drei Wochen</span></button>
+<p class="hint">Rot markiert: die Stufe mit dem größten Verlust.</p></div>
+<div class="screen" aria-live="polite"><div class="screen-top"><span class="mono" id="dTitle">Auswertung</span><span id="dBadge" class="status review">VORSCHLAG</span></div>
+<h3 class="big" id="dHead"></h3><p class="explain" id="dDesc"></p>
+<div class="funnel" id="funnel"></div>
+<div class="facts"><div class="fact"><b>Warum</b><span id="dWhy"></span></div><div class="fact"><b>Sicherheit</b><span id="dConf"></span></div><div class="fact next"><b>Nächster Lauf</b><span id="dNext"></span></div><div class="fact"><b>Status</b><span id="dDec"></span></div></div>
+<a class="button handoff" id="toL3" href="#l3" hidden>An Ebene 3 übergeben ↓</a></div></div>
+<div class="notice"><strong>Der Übergang zu Ebene 3:</strong> Wenn Absagen nicht zu dem passen, was in den Gesprächen stand, lag das Problem selten am Preis. Dann ist der Deal vermutlich in einem Raum gestorben, in dem niemand von euch war. Genau dort setzt die neue Ebene an.</div></div></section>
+
+<section id="l3"><div class="shell"><div class="head"><div class="kicker">06 / Ebene 3 · Tragbar machen</div><h2>Wer deinen Deal beendet, sitzt nie in deiner Demo.</h2></div><p class="intro">Enterprise-Marketing überzeugt nicht, es macht Entscheidungen tragbar. <b style="color:var(--ink)">Decision Portability</b> heißt: Ein Argument muss so einfach und belastbar sein, dass es den Weg über den Flur übersteht, den Champion vor Schuld schützt und im Raum antwortet, wenn du nicht dabei bist.</p>
+<div class="room"><div class="scene"><span class="mono">Was im Raum passiert ist</span><h3>Lenkungskreis, Dienstag, 8:30 Uhr. Dein Vertrieb: nicht eingeladen.</h3>
+<div class="ln key"><b>Betriebsrat</b><span>„Kann das System auswerten, wer wie lange woran arbeitet?“</span></div>
+<div class="ln"><b>Champion</b><span>„Das müsste ich noch klären.“</span></div>
+<div class="ln"><b>Geschäftsführung</b><span>„Dann schieben wir das ins nächste Jahr.“</span></div>
+<p class="foot">Dauer: vier Minuten. Im CRM steht später als Verlustgrund: <b>„Kein Budget“</b>.</p></div>
+<div class="unseen"><span class="mono">Drei Tests für jedes Argument</span><ol><li><b style="color:var(--ink)">Korridor:</b> Kann der Champion den Fall in 30 Sekunden weitererzählen?</li><li><b style="color:var(--ink)">Schutz:</b> Ist der Champion geschützt, falls es schiefgeht?</li><li><b style="color:var(--ink)">Raum:</b> Beantwortet das Argument die Fragen der Menschen, die nie mit dir sprechen?</li></ol></div></div>
+<div class="subhead">Live-Demo · Die Entscheidungs-Landkarte</div>
+<p class="lead sm" style="max-width:820px;margin-bottom:22px">Derselbe Deal, kurz vor dem Angebot. Jede Lücke beginnt als grauer Hinweis. Erst wenn der Account Owner sie einordnet, wird daraus ein Risiko, mit dem passenden nächsten Schritt: Wer noch nicht eingebunden ist, braucht einen Weg in den Prozess. Wer still im Hintergrund prüft, braucht eine Unterlage, keinen Termin.</p>
+<div class="dealbar"><div class="meta"><span>Deal · Monat 7 · vor dem Angebot</span>Maschinenbauer, 1.200 Mitarbeitende · Analytics-Plattform für die Fertigung</div><div class="cnt"><div class="num" id="openNum">0</div><small>offene Risiken</small><div class="num hint" id="hintNum">4</div><small>Hinweise, noch nicht eingeordnet</small><span class="status wait" id="riskBadge">UNGEPRÜFT</span><button class="reset" id="reset">Zurücksetzen</button></div></div>
+<div class="dm"><div class="map" id="map" role="group" aria-label="Rollen im Buying Center"></div><div class="rd" id="rd" aria-live="polite"></div></div>
+<div class="notice"><strong>Ehrlich bleiben:</strong> „Nicht sichtbar“ heißt nur, dass die verbundenen Daten keine Beteiligung zeigen. Im deutschen Mittelstand holt sich die Fachabteilung oft kurz und informell Rat bei Finanzen oder Legal, ganz ohne Kalendereintrag. Wer daraus sofort einen Alarm macht, nervt den Champion und kostet Vertrauen.</div>
+<div class="subhead">Sechs Signale, auf die Ebene 3 achtet</div>
+<div class="grid g3 sig">
+<div class="sg"><div class="sg-top"><span class="number">S01</span><span class="mt rule">REGEL</span></div><strong>Fehlende Rollen</strong><p>Gewonnene Deals dieser Größe hatten Finanzen und IT vor dem Angebot beteiligt. Dieser zeigt nur den Champion.</p></div>
+<div class="sg"><div class="sg-top"><span class="number">S02</span><span class="mt ai">KI + ZITAT</span></div><strong>Erwähnt, nicht sichtbar beteiligt</strong><p>Eine Rolle wird in Gesprächen genannt, taucht danach aber nirgends auf. Startet immer als Hinweis.</p></div>
+<div class="sg"><div class="sg-top"><span class="number">S03</span><span class="mt rule">REGEL</span></div><strong>Stille nach dem Lenkungskreis</strong><p>Die Aktivität bricht ab, kurz nachdem der Champion das Thema „nach oben“ trägt.</p></div>
+<div class="sg"><div class="sg-top"><span class="number">S04</span><span class="mt rule">REGEL</span></div><strong>Neue Leser oder gar keine</strong><p>Das Angebot wird von neuen Abteilungen geöffnet, oder nie weitergeleitet, obwohl es das müsste.</p></div>
+<div class="sg"><div class="sg-top"><span class="number">S05</span><span class="mt ai">KI + ZITAT</span></div><strong>Späte Risikothemen</strong><p>Sicherheit, Datenschutz oder Mitbestimmung tauchen in Monat sieben auf statt in Monat zwei.</p></div>
+<div class="sg"><div class="sg-top"><span class="number">S06</span><span class="mt ai">KI + ZITAT</span></div><strong>Champion ohne Antwort</strong><p>Der Champion sagt „Das muss ich klären“ zu einer Frage, die für eine Vetorolle zentral ist.</p></div>
+</div></div></section>
+
+<section id="rules"><div class="shell"><div class="head"><div class="kicker">07 / Spielregeln</div><h2>Vier Regeln für alle Ebenen. Der Code setzt sie durch, nicht das Modell.</h2></div>
+<div class="grid g4"><article class="card"><div class="number">REGEL 01</div><h3>Beobachtet, abgeleitet, zu prüfen.</h3><p>Jeder Befund trennt, was in den Daten steht, was ANTERA daraus schließt und was ein Mensch prüfen muss. Eine Abwesenheit in den Daten ist ein Hinweis, kein Befund.</p></article>
+<article class="card"><div class="number">REGEL 02</div><h3>Darf stoppen, nie starten.</h3><p>Schützende Eingriffe laufen automatisch und sind umkehrbar. Alles, was Geld ausgibt oder Kunden erreicht, braucht einen Menschen.</p></article>
+<article class="card"><div class="number">REGEL 03</div><h3>Keine erfundenen Versprechen.</h3><p>Entwürfe nutzen nur freigegebene Aussagen. Unbelegtes sperrt die Freigabe. Und freigegeben heißt nicht beantwortet: Der Status zeigt jeden fehlenden Schritt.</p></article>
+<article class="card"><div class="number">REGEL 04</div><h3>Entscheidungen bewerten, nicht Menschen.</h3><p>ANTERA analysiert Kampagnen, Deals und Entscheidungen. Kein Scoring, kein Ranking von Mitarbeitenden.</p></article></div></div></section>
+
+<section id="system"><div class="shell"><div class="head"><div class="kicker">08 / Architektur</div><h2>Ein Investigator. Ein Controller. Bausteine, die es heute gibt.</h2></div><p class="intro">Alle drei Ebenen laufen über dieselbe Architektur. Nichts davon braucht Forschung: vorhandene Systeme, eine Datenbank in der EU, ein Sprachmodell mit strukturierter Ausgabe und versionierte Regeln. Verfolge unten zwei echte Wege durch das System, abwechselnd: einen Launch, der gestoppt wird, und einen Hinweis aus einem Kundengespräch.</p>
+<div class="arch-wrap">
+<svg class="arch-svg" id="archSvg" viewBox="0 0 1180 530" role="img" aria-labelledby="archT archD"><title id="archT">ANTERA Systemarchitektur</title><desc id="archD">Daten aus Ads, Website, CRM, Gesprächen und Produktnutzung werden über eine Aufnahme mit Einwilligungsprüfung in einen Evidenz-Graph geschrieben. Die KI-Extraktion liefert Fakten mit Zitat an den Controller. Der Controller prüft Begriffe, die Prüfkette, Veto-Profile und Stopp-Regeln und übergibt Fälle an den Investigator. Der Investigator erstellt Diagnosen und Entwürfe, die der Owner prüft. Ergebnisse sind Launch-Check, Verlust-Diagnose, Empfehlung für den nächsten Lauf, Entscheidungs-Landkarte und Wochen-Digest. Ergebnisse fließen quartalsweise in die Regeln zurück.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#70c8bc"/></marker><marker id="ahc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f96c58"/></marker><marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9bacaa"/></marker></defs>
+<rect class="a-zone ai" x="442" y="50" width="446" height="176" rx="20"/><text class="a-lbl ai" x="444" y="40">KI · DARF LESEN, UNTERSUCHEN, ENTWERFEN</text>
+<rect class="a-zone det" x="442" y="276" width="446" height="176" rx="20"/><text class="a-lbl det" x="886" y="470" text-anchor="end">CODE + MENSCH · DARF STOPPEN UND ENTSCHEIDEN</text>
+<rect class="a-panel" x="10" y="40" width="180" height="396" rx="18"/><text class="a-lbl" x="26" y="64">DATENQUELLEN</text>
+<rect class="a-item" id="n-ads" x="22" y="80" width="156" height="56" rx="12"/><path class="a-ico" d="M31 120v-8M37 120v-14M43 120v-5"/><text class="a-t" x="60" y="105">Ads &amp; Kampagnen</text><text class="a-s2" x="60" y="122">Spend · Klicks</text>
+<rect class="a-item" id="n-web" x="22" y="150" width="156" height="56" rx="12"/><rect class="a-ico" x="31" y="169" width="18" height="18" rx="3"/><path class="a-ico" d="M35 175h10M35 181h6"/><text class="a-t" x="60" y="175">Web &amp; Formulare</text><text class="a-s2" x="60" y="192">Conversions</text>
+<rect class="a-item" x="22" y="220" width="156" height="56" rx="12"/><circle class="a-ico" cx="37" cy="243" r="4"/><path class="a-ico" d="M30 256c1-5 13-5 14 0"/><circle class="a-ico" cx="46.5" cy="245" r="3"/><path class="a-ico" d="M44.5 255c1-3 6-3 7 0"/><text class="a-t" x="60" y="245">CRM &amp; Deals</text><text class="a-s2" x="60" y="262">Leads · Opportunities</text>
+<rect class="a-item" id="n-call" x="22" y="290" width="156" height="56" rx="12"/><path class="a-ico" d="M31 310h18v12h-10l-5 4v-4h-3z"/><text class="a-t" x="60" y="315">Gespräche</text><text class="a-s2" x="60" y="332">Transkripte</text>
+<rect class="a-item" x="22" y="360" width="156" height="56" rx="12"/><path class="a-ico" d="M31 394l5-6 4 3 8-9"/><text class="a-t" x="60" y="385">Produkt &amp; Historie</text><text class="a-s2" x="60" y="402">Nutzung · Ausgänge</text>
+<path class="a-wire a-flow" d="M178 108H209M178 178H209M178 248H209M178 318H209M178 388H209M209 108V388"/><path class="a-wire a-flow" d="M209 139H226" marker-end="url(#ah)"/>
+<rect class="a-node code" id="n-auf" x="228" y="66" width="190" height="146" rx="16"/><circle cx="252" cy="94" r="13" fill="#70c8bc1c" stroke="#70c8bc88"/><rect x="246" y="93" width="12" height="9" rx="2" fill="none" stroke="#70c8bc" stroke-width="1.4"/><path d="M248.5 93v-3a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="#70c8bc" stroke-width="1.4"/>
+<text class="a-h" x="274" y="98">AUFNAHME &amp; SCHUTZ</text><text class="a-s" x="244" y="130">Connectoren, nur lesend</text><text class="a-s" x="244" y="148">EU-Hosting, Löschfristen</text>
+<rect class="a-chip" x="244" y="168" width="84" height="24" rx="12"/><text class="a-ct" x="286" y="184" text-anchor="middle">Einwilligung</text><rect class="a-chip" x="334" y="168" width="74" height="24" rx="12"/><text class="a-ct" x="371" y="184" text-anchor="middle">Pseudonym</text>
+<path class="a-wire a-flow" d="M323 212V288" marker-end="url(#ah)"/><text class="a-lbl n" x="332" y="255">NORMALISIERT</text>
+<rect class="a-node data" id="n-graph" x="228" y="290" width="190" height="146" rx="16"/><circle cx="252" cy="318" r="13" fill="#ffffff08" stroke="#9bacaa66"/><ellipse cx="252" cy="312" rx="7" ry="2.6" fill="none" stroke="#c3d1ce" stroke-width="1.3"/><path d="M245 312v11c0 1.5 3.1 2.6 7 2.6s7-1.1 7-2.6v-11" fill="none" stroke="#c3d1ce" stroke-width="1.3"/>
+<text class="a-h" x="274" y="322">EVIDENZ-GRAPH</text><text class="a-s" x="244" y="354">Kampagnen, Leads, Deals,</text><text class="a-s" x="244" y="372">Personen, Entscheidungen</text>
+<rect class="a-chip" x="244" y="392" width="70" height="24" rx="12"/><text class="a-ct" x="279" y="408" text-anchor="middle">Postgres</text><rect class="a-chip" x="320" y="392" width="86" height="24" rx="12"/><text class="a-ct" x="363" y="408" text-anchor="middle">Vektorsuche</text>
+<path class="a-wire a-flow" d="M418 318H436V139H454" marker-end="url(#ah)"/><path class="a-wire a-flow" d="M418 384H454" marker-end="url(#ah)"/>
+<rect class="a-node ai" id="n-ext" x="456" y="66" width="190" height="146" rx="16"/><circle cx="480" cy="94" r="13" fill="#f96c581c" stroke="#f96c5888"/><path d="M480 85l2.4 6.6 6.6 2.4-6.6 2.4-2.4 6.6-2.4-6.6-6.6-2.4 6.6-2.4z" fill="#f96c58"/>
+<text class="a-h" x="502" y="98">KI-EXTRAKTION</text><text class="a-s" x="472" y="130">Zitate, Einwände,</text><text class="a-s" x="472" y="148">Verlustgründe, Rollen</text>
+<rect class="a-chip" x="472" y="168" width="92" height="24" rx="12"/><text class="a-ct" x="518" y="184" text-anchor="middle">JSON-Schema</text><rect class="a-chip" x="570" y="168" width="58" height="24" rx="12"/><text class="a-ct" x="599" y="184" text-anchor="middle">Zitat</text>
+<path class="a-wire a-flow" d="M551 212V288" marker-end="url(#ah)"/><text class="a-lbl n" x="560" y="255">FAKTEN + ZITAT</text>
+<rect class="a-node code" id="n-ctl" x="456" y="290" width="190" height="146" rx="16"/><circle cx="480" cy="318" r="13" fill="#70c8bc1c" stroke="#70c8bc88"/><text x="480" y="322" text-anchor="middle" style="fill:#70c8bc;font:700 10px var(--mono)">&lt;/&gt;</text>
+<text class="a-h" x="502" y="322">CONTROLLER</text><text class="a-s" x="472" y="354">Begriffe, Prüfkette,</text><text class="a-s" x="472" y="372">Veto-Profile, Stopp-Regeln</text>
+<rect class="a-chip" x="472" y="392" width="82" height="24" rx="12"/><text class="a-ct" x="513" y="408" text-anchor="middle">Versioniert</text><rect x="560" y="392" width="68" height="24" rx="12" fill="#ff5f7314" stroke="#ff5f7380"/><text class="a-cm" x="594" y="408" text-anchor="middle" fill="#ff5f73">STOPP</text>
+<path class="a-wire a-flow" d="M646 330H664V139H682" marker-end="url(#ah)"/><text class="a-lbl n" x="672" y="255">FÄLLE</text>
+<rect class="a-node ai" id="n-inv" x="684" y="66" width="190" height="146" rx="16"/><circle cx="708" cy="94" r="13" fill="#f96c581c" stroke="#f96c5888"/><path d="M708 85l2.4 6.6 6.6 2.4-6.6 2.4-2.4 6.6-2.4-6.6-6.6-2.4 6.6-2.4z" fill="#f96c58"/>
+<text class="a-h" x="730" y="98">INVESTIGATOR</text><text class="a-s" x="700" y="130">Ursachen, Muster,</text><text class="a-s" x="700" y="148">Vorschläge, Entwürfe</text>
+<rect class="a-chip" x="700" y="168" width="86" height="24" rx="12"/><text class="a-ct" x="743" y="184" text-anchor="middle">Zitatpflicht</text><rect class="a-chip" x="792" y="168" width="62" height="24" rx="12"/><text class="a-ct" x="823" y="184" text-anchor="middle">Claims</text>
+<path class="a-wire c a-dash mv" d="M779 212V288" marker-end="url(#ahc)"/><text class="a-lbl ai n" x="788" y="255">NUR ENTWÜRFE</text>
+<rect class="a-node human" id="n-own" x="684" y="290" width="190" height="146" rx="16"/><circle cx="708" cy="318" r="13" fill="#ffffff0a" stroke="#c3d1ce66"/><circle cx="708" cy="314" r="3.6" fill="none" stroke="#c3d1ce" stroke-width="1.4"/><path d="M701 326c1.5-5.5 12.5-5.5 14 0" fill="none" stroke="#c3d1ce" stroke-width="1.4" stroke-linecap="round"/>
+<text class="a-h" x="730" y="322">OWNER</text><text class="a-s" x="700" y="354">Entscheidet, gibt frei,</text><text class="a-s" x="700" y="372">brieft, startet neu</text>
+<rect x="700" y="392" width="76" height="24" rx="12" fill="#70c8bc14" stroke="#70c8bc80"/><text class="a-cm" x="738" y="408" text-anchor="middle" fill="#70c8bc">FREIGABE</text><rect x="782" y="392" width="82" height="24" rx="12" fill="#ffc47914" stroke="#ffc47980"/><text class="a-cm" x="823" y="408" text-anchor="middle" fill="#ffc479">NEUSTART</text>
+<path class="a-wire a-flow" d="M874 363H893M893 108V388"/>
+<path class="a-wire" d="M893 108H924" marker-end="url(#ah)"/><path class="a-wire" d="M893 178H924" marker-end="url(#ah)"/><path class="a-wire" d="M893 248H924" marker-end="url(#ah)"/><path class="a-wire" d="M893 318H924" marker-end="url(#ah)"/><path class="a-wire" d="M893 388H924" marker-end="url(#ah)"/>
+<rect class="a-panel" x="912" y="40" width="258" height="396" rx="18"/><text class="a-lbl" x="928" y="64">ERGEBNISSE</text>
+<rect class="a-item" id="n-o1" x="926" y="80" width="230" height="56" rx="12"/><path class="a-ico" d="M935 108l6 5 11-12"/><text class="a-t" x="966" y="105">Launch-Check</text><text class="a-s2" x="966" y="122">Ebene 1 · GO oder BLOCKED</text>
+<rect class="a-item" x="926" y="150" width="230" height="56" rx="12"/><path class="a-ico" d="M935 190l5-6 4 3 8-9"/><text class="a-t" x="966" y="175">Verlust-Diagnose</text><text class="a-s2" x="966" y="192">Ebene 2 · Wo und warum</text>
+<rect class="a-item" x="926" y="220" width="230" height="56" rx="12"/><path class="a-ico" d="M953 244a9 9 0 1 0 1 8M953 238v6h-6"/><text class="a-t" x="966" y="245">Nächster Lauf</text><text class="a-s2" x="966" y="262">Ebene 2 · Empfehlung mit Beleg</text>
+<rect class="a-item" id="n-o4" x="926" y="290" width="230" height="56" rx="12"/><circle class="a-ico" cx="938" cy="312" r="3"/><circle class="a-ico" cx="950" cy="312" r="3"/><circle class="a-ico" cx="944" cy="324" r="3"/><path class="a-ico" d="M941 312h6M939.5 314.5l3 7M948.5 314.5l-3 7"/><text class="a-t" x="966" y="315">Entscheidungs-Landkarte</text><text class="a-s2" x="966" y="332">Ebene 3 · Stille Vetorollen</text>
+<rect class="a-item" x="926" y="360" width="230" height="56" rx="12"/><path class="a-ico" d="M935 380h18v12h-10l-5 4v-4h-3z"/><text class="a-t" x="966" y="385">Wochen-Digest</text><text class="a-s2" x="966" y="402">Nur, was Handeln braucht</text>
+<path class="a-wire m a-dash mv" d="M1041 436V500H551V440" marker-end="url(#ahm)"/>
+<rect class="a-bg" x="571" y="488" width="450" height="24" rx="6"/><text class="a-lbl n" x="796" y="504" text-anchor="middle">ERGEBNISSE → REGELN KALIBRIEREN · QUARTALSWEISE, DURCH MENSCHEN</text>
+<path id="routeA" d="M178 178H209V139H323V384H551V330H664V139H779V363H893V108H1000" fill="none" stroke="none"/>
+<path id="routeB" d="M178 318H209V139H323V318H436V139H551V330H664V139H779V363H893V318H1000" fill="none" stroke="none"/>
+<g id="packet" style="display:none"><circle class="pk-glow" r="13" fill="#f96c58"/><circle class="pk-core" r="5.5" fill="#f96c58" stroke="#fff" stroke-opacity=".6" stroke-width="1"/></g>
+</svg>
+<div class="arch-stack" id="archStack">
+<div class="as-step"><b>DATENQUELLEN</b><div class="as-chips"><span>Ads &amp; Kampagnen</span><span>Website &amp; Formulare</span><span>CRM &amp; Deals</span><span>Gesprächstranskripte</span><span>Produkt &amp; Historie</span></div></div>
+<div class="as-arrow">↓</div>
+<div class="as-step code"><b style="color:var(--teal)">AUFNAHME &amp; SCHUTZ → EVIDENZ-GRAPH</b><p>Nur lesend. Einwilligung geprüft, pseudonymisiert, in der EU gespeichert.</p></div>
+<div class="as-arrow">↓</div>
+<div class="as-step ai"><b style="color:var(--coral)">KI-EXTRAKTION</b><p>Zitate, Einwände, Verlustgründe und Rollen als strukturierte Fakten, jede mit Fundstelle.</p></div>
+<div class="as-arrow">↓ Fakten + Zitat</div>
+<div class="as-step code"><b style="color:var(--teal)">CONTROLLER</b><p>Begriffe, Prüfkette, Veto-Profile und Stopp-Regeln. Darf Ausgaben pausieren, nie starten.</p></div>
+<div class="as-arrow">↓ Fälle</div>
+<div class="as-step ai"><b style="color:var(--coral)">INVESTIGATOR</b><p>Findet Ursachen und Muster, entwirft Vorschläge aus freigegebenen Aussagen.</p></div>
+<div class="as-arrow" style="color:var(--coral)">↓ nur Entwürfe</div>
+<div class="as-step"><b>OWNER</b><p>Entscheidet, gibt frei, brieft und startet neu.</p></div>
+<div class="as-arrow">↓</div>
+<div class="as-step"><b>ERGEBNISSE</b><div class="as-chips"><span>Launch-Check</span><span>Verlust-Diagnose</span><span>Nächster Lauf</span><span>Entscheidungs-Landkarte</span><span>Wochen-Digest</span></div></div>
+<div class="as-arrow" style="color:var(--muted)">↺ Ergebnisse kalibrieren die Regeln, quartalsweise, durch Menschen</div>
+</div>
+<div class="arch-cap" aria-live="off"><span class="live" id="capTag">LIVE</span><span id="capText">Zwei Wege durch das System, abwechselnd.</span></div>
+<div class="legend"><span><i style="background:var(--coral)"></i>KI: liest, untersucht, entwirft</span><span><i style="background:var(--teal)"></i>Code: prüft reproduzierbar, darf stoppen</span><span><i style="background:var(--soft)"></i>Mensch: entscheidet und verantwortet</span><span><i style="background:var(--muted)"></i>Daten</span></div>
+</div>
+
+<div class="subhead">Der Investigator hat acht Werkzeuge. Alle lesend.</div>
+<div class="tools tools4">
+<div class="tool"><code>check_launch_chain(kampagne)</code><p>Führt die Prüfkette P01–P04 aus und liefert das Protokoll.</p></div>
+<div class="tool"><code>get_campaign_funnel(kampagne)</code><p>Alle Stufen bis zum Deal, mit Fallzahlen.</p></div>
+<div class="tool"><code>get_loss_reasons(zeitraum)</code><p>Verlustgründe aus dem CRM, verknüpft mit Gesprächen.</p></div>
+<div class="tool"><code>get_reference_pattern(segment)</code><p>Wie gewonnene Deals an dieser Stelle aussahen.</p></div>
+<div class="tool"><code>get_deal_timeline(deal)</code><p>Termine, Phasen und Aktivität über die Zeit.</p></div>
+<div class="tool"><code>get_stakeholders(deal)</code><p>Personen, Rollen und Teilnahme an Terminen.</p></div>
+<div class="tool"><code>search_transcripts(deal, frage)</code><p>Fundstellen mit Zitat, Sprecher und Datum.</p></div>
+<div class="tool"><code>get_claims(thema)</code><p>Nur freigegebene Aussagen aus der Claim-Bibliothek.</p></div>
+</div>
+<div class="notice"><strong>Wer stoppt:</strong> Der Investigator hat keinen Schreibzugriff. Pausiert werden Ausgaben vom Controller, ausgelöst durch eine feste Regel, nicht durch eine Einschätzung des Modells. Inhalte aus Gesprächen, E-Mails und Dokumenten gelten als nicht vertrauenswürdig und können weder Regeln ändern noch Werkzeuge freischalten.</div>
+
+<div class="subhead">Was womit gebaut wird</div>
+<div class="stack">
+<div class="srow h"><span>Baustein</span><span>Was er tut</span><span>Umsetzung, z. B.</span><span>Verantwortet</span></div>
+<div class="srow"><b>Connectoren</b><span>Liest Ads, Analytics, CRM, Termine, Transkripte und Dokumentaufrufe aus vorhandenen Systemen.</span><span>APIs von Ads, GA4, HubSpot oder Salesforce, Export des Call-Recorders, n8n für Abrufe</span><em>RevOps</em></div>
+<div class="srow"><b>Evidenz-Graph</b><span>Eine Datenbank für Kampagnen, Leads, Deals, Personen und Entscheidungen, mit Suche in Gesprächen.</span><span>Postgres in der EU (z. B. Supabase, Frankfurt) mit pgvector</span><em>RevOps · IT</em></div>
+<div class="srow"><b>Gemeinsame Begriffe</b><span>Was zählt als qualifiziert, als Opportunity, als Verlust. Versioniert und von Marketing und Vertrieb freigegeben.</span><span>Versionierte Tabelle, Änderungen nur mit Freigabe</span><em>Marketing · Vertrieb</em></div>
+<div class="srow"><b>Controller</b><span>Prüfkette, Veto-Profile, Stopp-Regeln und Status-Ketten. Gleiche Eingabe, gleiche Regelversion, gleiches Ergebnis.</span><span>Zustandsmaschine und SQL-Regeln in Postgres, Pausieren über die Ads-API</span><em>RevOps</em></div>
+<div class="srow"><b>Extraktion</b><span>Macht aus Gesprächen und Notizen strukturierte Fakten. Jede Aussage verweist auf ihre Fundstelle.</span><span>Sprachmodell über EU-Endpunkt mit AVV, Ausgabe per JSON-Schema validiert</span><em>Marketing Ops</em></div>
+<div class="srow"><b>Investigator</b><span>Startet Untersuchungen selbst, findet Ursachen und Muster, entwirft Vorschläge.</span><span>Ein Agent mit acht lesenden Werkzeugen, geplante und ereignisgesteuerte Läufe</span><em>Marketing Ops</em></div>
+<div class="srow"><b>Claim-Bibliothek</b><span>Alle Aussagen, die in Entwürfen stehen dürfen, mit Quelle und Version.</span><span>Tabelle mit Freigabe durch Produkt, Legal und Datenschutz</span><em>Produktmarketing</em></div>
+<div class="srow"><b>Oberfläche</b><span>Eine Entscheidungskarte pro Woche, Details pro Kampagne und Deal. Kein neues Tool, das man öffnen muss.</span><span>Seitenleiste im CRM, Digest in Slack oder Teams</span><em>Sales Ops</em></div>
+</div>
+
+<div class="subhead">Woran wir messen, ob es funktioniert</div>
+<div class="mx"><div class="mxc"><div class="number">EBENE 1</div><strong>Blocker vor dem Start</strong><p>Wie viele kaputte Verbindungen wurden erkannt, bevor Budget floss? Wie schnell wurde nach einem Stopp repariert?</p></div><div class="mxc"><div class="number">EBENE 2</div><strong>Kampagnen bis zum Deal</strong><p>Anteil der Läufe, die sich bis zum Deal nachverfolgen lassen, und Diagnosen, die das Team übernimmt.</p></div><div class="mxc"><div class="number">EBENE 3</div><strong>Lücken mit Briefing</strong><p>Bestätigte Lücken, auch stille Prüfungen, mit protokolliertem Champion-Briefing vor dem Angebot.</p></div><div class="mxc"><div class="number">VERTRAUEN</div><strong>Hilfe, nicht Kontrolle</strong><p>Erleben Champions und das eigene Team die Hinweise als hilfreich? Fehlalarme werden gezählt und erklärt.</p></div><div class="mxc"><div class="number">ZITATTREUE</div><strong>Jede Aussage belegbar</strong><p>Stichproben: Steht das Zitat wirklich so im Gespräch?</p></div><div class="mxc"><div class="number">CLAIMTREUE</div><strong>Null erfundene Versprechen</strong><p>In freigegebenen Entwürfen gibt es keine Aussage außerhalb der Bibliothek. Harte Regel.</p></div></div>
+<div class="notice"><strong>Fairer Rückblick:</strong> Es zählt nur der Wissensstand der jeweiligen Phase. Ein gewonnener Deal kann eine echte Lücke gehabt haben, ein verlorener aus ganz anderen Gründen gescheitert sein. Deshalb wird jede Meldung danach bewertet, ob sie eine echte, handlungsfähige Lücke zeigte, nicht nach Gewinn oder Verlust.</div>
+</div></section>
+
+<section id="build"><div class="shell"><div class="head"><div class="kicker">09 / Umsetzung</div><h2>Erst das Fundament. Dann eine Ebene nach der anderen.</h2></div><p class="intro">Jede Stufe muss sich allein lohnen und ihre Abnahme bestehen, bevor die nächste kommt. Ebene 3 startet bewusst manuell: Der Pilot testet, ob sich das Verhalten des Teams ändert, nicht ob man Lücken automatisch finden kann. Die Zeitangaben sind Richtwerte für ein kleines Team.</p>
+<div class="road">
+<div class="roaditem"><div><strong>Fundament: Begriffe und Kette</strong><p>Gemeinsam mit Marketing und Vertrieb festlegen, was als qualifiziert, Opportunity und Verlust zählt. Kampagne, Lead und Deal verbinden, Verlustgrund als Pflichtfeld.</p><span class="acc"><b>ABNAHME</b>Begriffe freigegeben, jeder neue Lead ist seiner Kampagne zugeordnet.</span></div><em>2–3 WOCHEN</em></div>
+<div class="roaditem"><div><strong>Ebene 1: Launch-Check</strong><p>Prüfkette P01–P04 als reine Regeln, keine KI. Tägliche Wiederholung, automatisches Pausieren bei Bruch.</p><span class="acc"><b>ABNAHME</b>Kein Start mehr ohne bestandene Kette. Jeder Stopp ist protokolliert und nachvollziehbar.</span></div><em>CA. 4 WOCHEN</em></div>
+<div class="roaditem"><div><strong>Ebene 3: Manueller Pilot</strong><p>Parallel: ein Vertriebsteam, das an deutsche Industrieunternehmen verkauft, eine Phase vor dem Angebot, ein Einwand. Hinweise kommen aus den Notizen des Account Owners. Jeder Deal läuft durch alle vier Schritte.</p><span class="acc"><b>ABNAHME</b>Account Owner ordnen echte Lücken ein und briefen vor dem Angebot. Champions erleben es als Hilfe.</span></div><em>6–8 WOCHEN</em></div>
+<div class="roaditem"><div><strong>Ebene 2: Investigator für „Wo und warum“</strong><p>Lesender Agent mit benannten Werkzeugen, Fallzahlen und konkurrierenden Erklärungen. Evaluiert an vergangenen Kampagnen, deren Ausgang bekannt ist, nur mit dem damaligen Wissensstand.</p><span class="acc"><b>ABNAHME</b>Diagnosen sind belegt und werden vom Team übernommen.</span></div><em>CA. 6 WOCHEN</em></div>
+<div class="roaditem"><div><strong>Mehr Autonomie</strong><p>Ereignisgesteuerte Untersuchungen, automatische Erkennung für Ebene 3 nach Einwilligung und Abstimmung mit dem eigenen Betriebsrat. Regeln und Profile werden quartalsweise von Menschen kalibriert.</p><span class="acc"><b>ABNAHME</b>Die Automatik findet die manuell bestätigten Lücken wieder, die Fehlalarme sinken.</span></div><em>LAUFEND</em></div>
+</div>
+<div class="fit"><div><div class="kicker">Lohnt sich bei</div><h3>Komplexen B2B-Entscheidungen</h3><ul><li>Spürbarem Budget für Kampagnen</li><li>Drei oder mehr Personen auf Kundenseite</li><li>Verkaufszyklen ab etwa drei Monaten</li><li>Wiederkehrenden Einwänden, die sich vorbereiten lassen</li></ul></div>
+<div class="no"><div class="kicker">Lohnt sich nicht bei</div><h3>Einfachen Käufen</h3><ul><li>Self-Service und Kreditkarten-Abschlüssen</li><li>Kurzen Zyklen mit einer entscheidenden Person</li><li>Sehr wenigen Kampagnen und Deals pro Jahr</li><li>Dann reicht ein sauberer CRM-Prozess.</li></ul></div></div></div></section>
+
+<section id="privacy"><div class="shell"><div class="head"><div class="kicker">10 / Datenschutz</div><h2>Wer Gespräche auswertet, braucht selbst einen Termin beim Betriebsrat.</h2></div><p class="intro">Dieselbe Regel, die Deals beim Kunden kippt, gilt im eigenen Haus. Ein System, das Gespräche liest, muss vor allem vertrauenswürdig sein, sonst nutzt es niemand.</p>
+<div class="grid g3"><article class="card"><div class="number">EINWILLIGUNG</div><h3>Aufzeichnung nur mit Zustimmung</h3><p>Alle Teilnehmenden werden zu Beginn informiert und können widersprechen. Ohne Einwilligung kein Transkript.</p></article>
+<article class="card"><div class="number">DATENSPARSAMKEIT</div><h3>E-Mails nur als Metadaten</h3><p>Standardmäßig zählt nur, wer wann mit wem kommuniziert. Inhalte werden nur gelesen, wo es vereinbart ist.</p></article>
+<article class="card"><div class="number">EU AI ACT</div><h3>Bewusst keine Leistungsbewertung</h3><p>KI, die die Leistung von Beschäftigten bewertet, gilt als Hochrisiko-Anwendung (Anhang III). ANTERA bewertet Entscheidungen und bleibt bewusst außerhalb dieses Bereichs.</p></article>
+<article class="card"><div class="number">MITBESTIMMUNG</div><h3>Einführung mit dem eigenen Betriebsrat</h3><p>Zweck, Daten und Grenzen werden vorab offengelegt und bei Bedarf in einer Betriebsvereinbarung festgehalten.</p></article>
+<article class="card"><div class="number">VERTRÄGE</div><h3>EU-Hosting und AVV überall</h3><p>Auftragsverarbeitung mit allen Anbietern, auch dem Sprachmodell. Keine Nutzung der Daten für Modelltraining.</p></article>
+<article class="card"><div class="number">LÖSCHUNG</div><h3>Transkripte mit Ablaufdatum</h3><p>Rohtranskripte werden nach festgelegter Frist gelöscht. Was bleibt, sind pseudonymisierte Fakten mit Verweis.</p></article></div></div></section>
+
+<section id="team"><div class="shell"><div class="head"><div class="kicker">11 / Team</div><h2>Diese Systeme scheitern selten an der Technik.</h2></div><p class="origin">ANTERA ist aus einem System entstanden, das technisch funktionierte und trotzdem eingestellt wurde. Die Logik war sauber, das Team konnte damit nicht arbeiten. Die Lektion ist dieselbe wie bei jedem Enterprise-Deal: Was die Menschen im Raum nicht mittragen, stirbt, egal wie gut es ist.</p>
+<div class="subhead" style="margin-top:0">Vier Muster, an denen solche Projekte scheitern</div>
+<div class="patterns">
+<article class="pat"><div class="p-top"><div class="number">MUSTER 01</div><h3>Aktivität lässt sich besser berichten als Verlust.</h3><p>Traffic und MQLs sehen im Meeting gut aus. Fehlende Deals sind unangenehm, also verschwinden sie aus dem Report.</p></div><div class="p-fix"><b>ANTERA</b>Jede Auswertung beginnt beim Deal. Aktivitätszahlen bleiben, als Diagnose, nicht als Erfolgsbeweis.</div></article>
+<article class="pat"><div class="p-top"><div class="number">MUSTER 02</div><h3>Zu viel System, zu wenig Alltag.</h3><p>Wer vierzig Entscheidungen lesen muss, liest keine. Ein lückenloses Regelwerk wird schnell zur Pflichtlektüre, die niemand öffnet.</p></div><div class="p-fix"><b>ANTERA</b>Der Agent arbeitet im Hintergrund. Sichtbar wird nur, was diese Woche einen Menschen braucht.</div></article>
+<article class="pat"><div class="p-top"><div class="number">MUSTER 03</div><h3>Vertrieb besitzt den Deal, Marketing das Argument.</h3><p>Dazwischen liegt die Lücke, in der Deals sterben. Der Vertrieb merkt, dass ein Argument fehlt. Marketing erfährt es nie.</p></div><div class="p-fix"><b>ANTERA</b>Jede Lücke hat zwei Namen: Der Account Owner entscheidet und brieft, das Produktmarketing liefert die Antwort.</div></article>
+<article class="pat"><div class="p-top"><div class="number">MUSTER 04</div><h3>„Jetzt werden wir überwacht.“</h3><p>Sobald Gespräche analysiert werden, fürchtet das Team um seine Bewertung. Dann wird weniger aufgezeichnet und das System wird blind.</p></div><div class="p-fix"><b>ANTERA</b>Bewertet Entscheidungen, nicht Menschen. Regeln offen, Betriebsvereinbarung vorab, kein Scoring von Personen.</div></article>
+</div>
+<div class="northstar"><div><div class="kicker">Woran Erfolg gemessen wird</div><h3>Jede Entscheidung hält, auch dort, wo du nicht bist.</h3></div><ul><li>Kein Start ohne bestandene Prüfkette</li><li>Jede Kampagne bis zum Deal erklärbar</li><li>Kein Deal verloren, weil eine Frage unvorbereitet war</li><li>Verlustgründe, die mit dem echten Grund übereinstimmen</li></ul></div>
+</div></section>
+
+<section class="footer"><div class="shell"><svg class="mark" viewBox="70 50 200 200" aria-hidden="true"><path fill="#f96c58" d="M79.827 101.993 C79.827 78.686 98.72 59.793 122.027 59.793 L218.041 59.793 C241.348 59.793 260.241 78.686 260.241 101.993 L260.241 198.007 C260.241 221.314 241.348 240.207 218.041 240.207 L122.027 240.207 C98.72 240.207 79.827 221.314 79.827 198.007 Z M220.398 83.405 L202.423 91.304 C202.373 110.35 199.379 143.545 190.234 160.469 C188.568 163.553 186.726 166.68 184.39 169.316 C180.715 173.464 176.342 177.52 171.007 179.395 C158.675 183.729 145.546 177.893 140.718 165.669 C134.948 151.062 143.99 133.595 160.266 132.431 C171.893 131.6 182.581 138.137 188.766 147.708 C192.13 138.311 194.281 128.7 195.176 118.747 C195.323 117.111 196.055 109.655 195.474 108.572 C194.268 106.323 191.002 104.576 188.891 103.298 C181.747 98.973 171.122 96.726 162.83 96.622 C130.065 96.213 104.596 121.932 103.338 154.294 C102.257 182.086 121.337 208.599 148.724 214.963 C155.713 216.587 162.946 217.036 170.074 216.141 C172.063 215.892 174.002 215.399 175.965 215.019 C182.401 213.775 188.75 210.618 194.147 206.973 C220.818 188.957 232.369 152.065 235.608 121.684 C236.312 115.084 236.574 97.948 236.774 91.321 Z M235.412 151.662 C234.921 155.418 233.53 159.182 232.345 162.769 C226.427 180.684 216.499 197.513 200.764 208.427 L200.741 213.518 L235.901 213.529 L235.834 151.662 Z"/></svg><div class="kicker">ANTERA / Konzept für ein agentisches KI-System</div><h2>Entscheidungen, die halten.<br><span>Auch ohne dich im Raum.</span></h2><p>Ein Aether-Hive-Konzept für abgesicherte Entscheidungen in Marketing und Vertrieb.</p><p class="fine">Alle Szenarien, Personen und Zahlen auf dieser Seite sind fiktiv. Stand November 2026.</p></div></section></main>
+
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+function h(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+const RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Demo ---------- */
+const R={
+champion:{name:'Leitung PMO',sub:'Champion',col:'in',veto:null,done:true,
+ obs:[['14 Termine in 7 Monaten, der letzte vor 6 Tagen.','CRM'],['„Wir hören auf, Projektstunden in drei Excel-Listen zu suchen.“','Call, 14.05., Champion']],
+ inf:'Hat einen Kernsatz in eigenen Worten. Der Korridor-Test ist wahrscheinlich bestanden.',conf:'Hoch',
+ ver:'„Wie würdest du das in 30 Sekunden deiner Geschäftsführung erzählen?“',doneNote:'Trägt den Fall intern weiter, in Räumen, in denen du nicht bist. Ihr Job in ANTERA: die vorbereiteten Antworten in den Raum tragen.'},
+fach:{name:'Teamleitungen',sub:'Fachbereich',col:'in',veto:'Gering',why:'Akzeptanz im Alltag',done:true,q:'„Wird das für uns mehr oder weniger Aufwand?“',
+ obs:[['Pilot mit 25 Nutzern abgeschlossen, Feedback positiv.','Pilotbericht, 21.07.']],inf:'Die Frage ist durch den Pilot beantwortet.',conf:'Hoch',ver:null,doneNote:'Durch den Pilot beantwortet. Keine Aktion nötig.'},
+gf:{nm:'die Geschäftsführung',name:'Geschäftsführung',sub:'Entscheidet im Lenkungskreis',col:'mention',veto:'Hoch',why:'Budget und Priorität',
+ q:'„Warum jetzt, und was kostet es uns, nichts zu tun?“',
+ obs:[['„Das geht im März in den Lenkungskreis, da sitzt dann auch unser GF.“','Call, 02.06., Champion'],['Kein Termin mit der Geschäftsführung in den verbundenen Daten.','Kalender · CRM']],
+ inf:'Die Geschäftsführung entscheidet mit, ist aber nicht sichtbar beteiligt. In 9 von 11 gewonnenen Deals dieser Größe gab es vor dem Angebot einen Termin mit ihr.',conf:'Mittel',
+ ver:'„Wie läuft das im Lenkungskreis ab, und was wird die Geschäftsführung dort wissen wollen?“',
+ title:'Ein Absatz für den Lenkungskreis',
+ lines:[['ok','Heute pflegen drei Abteilungen Projektstunden in getrennten Excel-Listen.','Champion, Call 14.05.'],['ok','Ein Pilot mit 25 Nutzern ist abgeschlossen, das Feedback ist positiv.','Pilotbericht, 21.07.'],['ok','Im ersten Jahr monatlich kündbar, also ohne langfristiges Risiko.','Claim-Bibliothek · Vertrieb v2'],['rec','Vorschlag: Der Champion trägt den Absatz selbst vor, nicht als Folie.','Empfehlung']],
+ parts:[{t:'Warum jetzt?',by:'Excel-Listen, Pilotergebnis'},{t:'Was kostet es, nichts zu tun?',by:null}],
+ fill:['ok','Die Monatsabrechnung verzögert sich heute um drei bis vier Tage, weil Stunden manuell abgeglichen werden.','Champion, Call 14.05.'],fillBy:'Verzögerte Monatsabrechnung'},
+fin:{nm:'Finanzen',name:'Finanzen',sub:'Kaufmännische Leitung',col:'never',veto:'Hoch',why:'Gesamtkosten und Vertrag',
+ q:'„Was kostet das über drei Jahre, und wie kommen wir wieder raus?“',
+ obs:[['Finanzen taucht in keinem verbundenen Gespräch, keiner E-Mail und keinem Termin auf.','CRM · Transkripte · Kalender']],
+ inf:'Bei diesem Volumen entscheidet Finanzen sehr wahrscheinlich mit. In 10 von 12 gewonnenen Deals vergleichbarer Größe war Finanzen vor dem Angebot beteiligt.',conf:'Mittel',
+ ver:'„Wer schaut sich Verträge dieser Größe bei euch noch an, und was wird diese Person wissen wollen?“',
+ title:'Gesamtkosten und Ausstieg auf einer Seite',
+ lines:[['ok','Gesamtkosten über drei Jahre laut Angebot, inklusive Einführung.','Angebot v2, 10.09.'],['ok','Vertragslaufzeit und Kündigungsfristen.','Claim-Bibliothek · Legal v4'],['ok','Vollständiger Datenexport bei Vertragsende.','Claim-Bibliothek · Produkt v3'],['warn','„Spart 14 Stunden pro Woche“ ist eine Schätzung des Champions, kein Beleg.','Nicht belegt']],
+ parts:[{t:'Kosten über drei Jahre',by:'Angebot v2'},{t:'Ausstieg und Datenmitnahme',by:'Kündigung, Datenexport'}]},
+it:{nm:'die IT-Sicherheit',name:'IT-Sicherheit',sub:'Informationssicherheit',col:'mention',veto:'Hoch',why:'Freigabe von Systemen und Zugängen',
+ q:'„SSO, Hosting, Zertifikate, und wer haftet bei einem Vorfall?“',
+ obs:[['Sicherheitsfragebogen eingegangen, in Monat 7.','E-Mail-Metadaten, 12.09.'],['Kein Termin mit der IT in den verbundenen Daten.','Kalender']],
+ inf:'Die IT ist spät dazugekommen. In gewonnenen Deals kam der Fragebogen im Schnitt in Monat 2. Wahrscheinlich prüft jemand Neues mit.',conf:'Hoch',
+ ver:'„Wer prüft den Fragebogen bei euch, und gibt es eigene Vorgaben zu Haftung und Meldewegen?“',
+ title:'Sicherheits-Kurzprofil',
+ lines:[['ok','Anmeldung per Single Sign-on über SAML.','Claim-Bibliothek · Produkt v3'],['ok','Hosting in einem Rechenzentrum in der EU, ISO 27001 zertifiziert.','Claim-Bibliothek · IT v2'],['ok','Aktueller Penetrationstest-Bericht auf Anfrage.','Claim-Bibliothek · IT v2']],
+ parts:[{t:'Single Sign-on',by:'SAML'},{t:'Hosting und Zertifikate',by:'EU-Rechenzentrum, ISO 27001, Pentest'},{t:'Haftung bei einem Vorfall',by:null}],
+ fill:['ok','Haftung, Meldefristen und Ablauf bei Sicherheitsvorfällen sind im AVV und im SLA geregelt.','Claim-Bibliothek · Legal v4'],fillBy:'AVV und SLA'},
+dsb:{name:'Datenschutz',sub:'Datenschutzbeauftragte',col:'mention',veto:'Mittel',why:'Freigabe der Datenverarbeitung',done:true,q:'„Wo liegen die Daten, und gibt es einen AVV?“',
+ obs:[['„Unsere DSB will den AVV sehen.“','E-Mail, 28.08., Champion'],['AVV und technische Maßnahmen direkt an die DSB versendet.','E-Mail, 30.08.']],inf:'Die Frage wurde direkt beantwortet.',conf:'Hoch',ver:null,doneNote:'Bereits geklärt. Keine Aktion nötig.'},
+br:{nm:'der Betriebsrat',name:'Betriebsrat',sub:'Mitbestimmung nach § 87 BetrVG',col:'mention',veto:'Hoch',why:'Kann die Einführung blockieren',
+ q:'„Kann das System auswerten, wer wie lange woran arbeitet?“',
+ obs:[['„Unser Betriebsrat ist bei allem, was nach Leistungskontrolle riecht, sehr sensibel.“','Call, 02.06., Champion'],['Danach keine Erwähnung und keine Beteiligung in den verbundenen Daten.','Transkripte · Kalender']],
+ inf:'Software, die Leistung oder Verhalten überwachen kann, ist mitbestimmungspflichtig (§ 87 Abs. 1 Nr. 6 BetrVG). Der Betriebsrat kann die Einführung also aufhalten, und der Champion hat das Thema selbst angesprochen.',conf:'Hoch',
+ ver:'„Wie bindet ihr den Betriebsrat bei solchen Systemen üblicherweise ein, und was wird er fragen?“',
+ title:'Antworten für den Betriebsrat',
+ lines:[['ok','Auswertungen für Führungskräfte lassen sich auf Teamebene begrenzen.','Claim-Bibliothek · Produkt v3'],['ok','Kein Ranking und kein Leistungsvergleich einzelner Mitarbeitender.','Claim-Bibliothek · Produkt v3'],['ok','Muster-Betriebsvereinbarung als Vorlage verfügbar.','Claim-Bibliothek · Legal v4'],['warn','„Löschfristen frei einstellbar“ steht nicht in der Claim-Bibliothek.','Nicht belegt · Produktteam fragen'],['rec','Vorschlag: Einen Termin mit dem Betriebsrat vor Vertragsabschluss anbieten.','Empfehlung']],
+ parts:[{t:'Auswertung einzelner Personen',by:'Teamebene, kein Ranking'},{t:'Rahmen für die Einführung',by:'Muster-Betriebsvereinbarung'}]}};
+const GROUPS=[['in','Im Gespräch',''],['mention','Erwähnt, nicht sichtbar beteiligt',''],['never','In den Daten nicht sichtbar','never']];
+const STEPS=['Hinweis eingeordnet','Frage abgedeckt','Entwurf freigegeben','Champion gebrieft'];const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);const MODE={notyet:'Noch nicht eingebunden',shadow:'Prüft im Hintergrund'};
+let S={},sel='br';
+function init(){S={};for(const k in R)S[k]={gap:null,cov:'todo',filled:false,clean:false,approved:false,briefed:false}}
+const isVeto=k=>R[k].veto==='Hoch'||R[k].veto==='Mittel';
+const covered=(k,p)=>!!p.by||(p.by===null&&S[k].filled);
+const allCovered=k=>R[k].parts.every(p=>covered(k,p));
+const resolved=k=>R[k].done||S[k].gap==='handled'||(S[k].briefed&&S[k].cov==='full');
+function dotOf(k){if(resolved(k))return'ok';if(!S[k].gap)return'hint';if(S[k].cov==='todo')return'no';return'part'}
+function draftLines(k){const r=R[k],s=S[k];let L=r.lines.filter(x=>!(s.clean&&x[0]==='warn'));if(s.filled&&r.fill)L=L.slice(0,L.findIndex(x=>x[0]==='rec')<0?L.length:L.findIndex(x=>x[0]==='rec')).concat([['new',r.fill[1],r.fill[2]]],L.filter(x=>x[0]==='rec'));return L}
+function summary(){const vs=Object.keys(R).filter(isVeto);const risks=vs.filter(k=>!resolved(k)&&S[k].gap).length;const hints=vs.filter(k=>!resolved(k)&&!S[k].gap).length;$('openNum').textContent=risks;$('hintNum').textContent=hints;const b=$('riskBadge');
+if(risks>=3){b.className='status blocked';b.textContent='RISIKO HOCH'}else if(risks>0){b.className='status review';b.textContent='RISIKO MITTEL'}else if(hints>0){b.className='status wait';b.textContent='UNGEPRÜFT'}else{b.className='status go';b.textContent='VORBEREITET'}}
+function renderMap(){const m=$('map');m.replaceChildren();
+GROUPS.forEach(([key,label,cls])=>{const keys=Object.keys(R).filter(k=>R[k].col===key);const g=h('div','grp'+(cls?' '+cls:''));const hd=h('div','grp-h');hd.append(h('span',null,label),h('span',null,String(keys.length)));g.append(hd);
+keys.forEach(k=>{const r=R[k];const b=h('button','rb');b.setAttribute('aria-pressed',String(k===sel));b.append(h('i','dot '+dotOf(k)));const t=h('div');t.append(h('b',null,r.name),h('span',null,r.sub));b.append(t);
+b.append(h('span','vt'+(r.veto==='Hoch'?' hi':''),r.veto?'VETO '+r.veto.toUpperCase():'CHAMPION'));
+b.onclick=()=>{sel=k;renderMap();renderDetail();if(window.innerWidth<=1060)$('rd').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})};g.append(b)});m.append(g)});
+const lg=h('div','maplegend');[['#5d7378','Hinweis, ungeprüft'],['var(--red)','Risiko'],['var(--amber)','In Arbeit'],['var(--teal)','Vorbereitet']].forEach(([c,t])=>{const s=h('span');const i=h('i');i.style.background=c;s.append(i,document.createTextNode(t));lg.append(s)});m.append(lg);
+const ask=h('div','askbox');ask.append(h('span','mono','Ein Gespräch mit dem Champion'),h('h4',null,'Alle offenen Fragen in einer Runde'));const open=Object.keys(R).filter(k=>isVeto(k)&&!R[k].done&&!S[k].gap);
+if(open.length){const ol=h('ol');open.forEach(k=>{const li=h('li');li.append(h('b',null,R[k].name.toUpperCase()),document.createTextNode(R[k].ver));ol.append(li)});ask.append(ol);ask.append(h('p',null,'Gebündelt statt einzeln nachgefragt. So bleibt der Account Owner Helfer, nicht Kontrolleur.'))}else ask.append(h('p',null,'Alle Hinweise sind eingeordnet.'));m.append(ask)}
+function evBlock(cls,label,content){const e=h('div','eb '+cls);e.append(h('b',null,label));e.append(content);return e}
+function list(items){const ul=h('ul');items.forEach(([t,src])=>{const li=h('li',null,t);li.append(h('i',null,src));ul.append(li)});return ul}
+function stepStates(k){const s=S[k];const st=[];
+st[0]=s.gap?'sd':'cur';
+st[1]=s.cov==='full'?'sd':s.cov==='partial'?'part':(s.gap?'cur':'');
+st[2]=s.approved?'sd':(s.cov!=='todo'?'cur':'');
+st[3]=s.briefed?(s.cov==='full'?'sd':'part'):(s.approved?'cur':'');return st}
+function linesList(L){const ul=h('ul','dr-l');L.forEach(([kind,t,src])=>{const li=h('li',kind==='warn'?'warn':kind==='new'?'new':null);li.append(h('span','m '+(kind==='new'?'ok':kind),kind==='ok'||kind==='new'?'✓':kind==='warn'?'!':'→'));const x=h('div',null,t);x.append(h('i',null,src+(kind==='new'?' · ergänzt':'')));li.append(x);ul.append(li)});return ul}
+function covList(k){const ul=h('ul','dr-l');R[k].parts.forEach(p=>{const ok=covered(k,p);const li=h('li',ok?null:'open');li.append(h('span','m '+(ok?'ok':'no'),ok?'✓':'✕'));const x=h('div',null,p.t);x.append(h('i',null,ok?('Abgedeckt durch: '+(p.by||R[k].fillBy)):'Nicht abgedeckt'));li.append(x);ul.append(li)});return ul}
+function act(cls,label,title){const a=h('div','act'+(cls?' '+cls:''));a.append(h('span','mono',label));if(title)a.append(h('h4',null,title));return a}
+function btn(txt,cls,fn,dis){const b=h('button','btn'+(cls?' '+cls:''),txt);b.onclick=fn;if(dis)b.disabled=true;return b}
+function renderDetail(){const k=sel,r=R[k],s=S[k],d=$('rd');d.replaceChildren();
+const head=h('div','rd-head');const l=h('div');l.append(h('span','mono',r.sub),h('h3',null,r.name));head.append(l);
+head.append(h('span','vb'+(r.veto==='Hoch'?'':' lo'),r.veto?('Vetomacht: '+r.veto+' · '+r.why):'Interner Fürsprecher'));d.append(head);
+const q=h('div','rq');if(r.q){q.append(h('span',null,'Eine Frage, auf die sich Vorbereitung lohnt'),h('p',null,r.q));if(!r.done)q.append(h('small',null,'Abgeleitet aus Beobachtung und Muster. Keine Vorhersage, was gefragt wird.'))}else{q.append(h('span',null,'Rolle im Deal'),h('p',null,'Trägt den Fall intern weiter.'))}d.append(q);
+d.append(evBlock('obs','BEOBACHTET',list(r.obs)));
+const inf=h('div');inf.append(h('p',null,r.inf),h('span','conf','SICHERHEIT: '+r.conf.toUpperCase()));d.append(evBlock('inf','ABGELEITET',inf));
+if(r.ver)d.append(evBlock('ver','ZU PRÜFEN',h('p',null,'Frage an den Champion: '+r.ver)));
+if(r.done){d.append(h('div','done',r.doneNote));return}
+const stp=h('div','steps');stepStates(k).forEach((c,i)=>{const e=h('div','st'+(c?' '+c:''));e.append(h('i',null,c==='sd'?'✓':c==='part'?'!':String(i+1)),document.createTextNode(STEPS[i]));stp.append(e)});
+if(s.gap!=='handled')d.append(stp);
+if(MODE[s.gap]){const md=h('div','mode');md.append(h('b',null,'EINGEORDNET'),document.createTextNode(MODE[s.gap]+(s.gap==='shadow'?' → kein Termin anfragen. Der Champion braucht eine Unterlage, die er weitergeben kann.':' → der Champion entscheidet, ob und wann '+r.nm+' dazukommt.')));d.append(md)}
+let a;
+if(s.gap==='handled'){a=act('okbox','Ergebnis','Als bereits geklärt markiert');a.append(h('p',null,'Die Lücke war nur in den Daten. Im Pilot zählt das als nicht bestätigter Hinweis. Der Grund wird notiert, die Beteiligung im CRM nachgetragen, damit die Regel besser wird.'));const r2=h('div','dr-act');r2.append(btn('Rückgängig','ghost',()=>{s.gap=null;update()}));a.append(r2)}
+else if(!s.gap){a=act('','Schritt 1 · Account Owner','Was steckt hinter dem Hinweis?');a.append(h('p',null,'Eine Frage an den Champion klärt es, gebündelt mit den anderen offenen Rollen:'));a.append(h('p','askq',r.ver));a.append(h('p',null,'Die Antwort entscheidet über den nächsten Schritt:'));const r2=h('div','dr-act');r2.append(btn('Noch nicht eingebunden','',()=>{s.gap='notyet';update()}),btn('Prüft im Hintergrund','',()=>{s.gap='shadow';update()}),btn('Schon geklärt','ghost',()=>{s.gap='handled';update()}));r2.append(h('span','dr-note','Bis zur Einordnung bleibt es ein Hinweis, kein Risiko. Beide ersten Antworten sind echte Lücken, nur mit unterschiedlicher Lösung.'));a.append(r2)}
+else if(s.cov==='todo'){a=act('','Schritt 2 · Abdeckung','Beantwortet der Entwurf die ganze Frage?');a.append(covList(k));const r2=h('div','dr-act');
+if(allCovered(k)){r2.append(btn('Abdeckung bestätigen','',()=>{s.cov='full';update()}));r2.append(h('span','dr-note','Jeder Teil der Frage hat eine belegte Antwort.'))}
+else{if(r.fill)r2.append(btn('Fehlenden Teil aus der Claim-Bibliothek ergänzen','warn',()=>{s.filled=true;update()}));r2.append(btn('Bewusst offen lassen','ghost',()=>{s.cov='partial';update()}));r2.append(h('span','dr-note','Ergänzt wird nur aus der Claim-Bibliothek oder aus belegten Aussagen, nie mit freiem Text.'))}
+a.append(r2)}
+else if(!s.approved){a=act('','Schritt 3 · Freigabe',r.title);const L=draftLines(k);a.append(linesList(L));const hasWarn=L.some(x=>x[0]==='warn');const r2=h('div','dr-act');
+if(hasWarn)r2.append(btn('Unbelegte Aussage entfernen','warn',()=>{s.clean=true;update()}));r2.append(btn('Entwurf freigeben','',()=>{s.approved=true;update()},hasWarn));
+r2.append(h('span','dr-note',hasWarn?'Freigabe gesperrt: Eine Aussage hat keinen Beleg. Der Code lässt sie nicht durch.':(s.cov==='partial'?'Freigabe möglich, aber ein Teil der Frage bleibt offen. Das bleibt im Status sichtbar.':'Alle Aussagen sind belegt. Die Entscheidung liegt beim Account Owner.')));a.append(r2)}
+else if(!s.briefed){const sh=s.gap==='shadow';a=act('','Schritt 4 · '+(sh?'Übergabe':'Briefing'),sh?'Unterlage für die stille Prüfung':'Champion briefen, Einbindung planen');a.append(h('p',null,sh?(cap(r.nm)+' prüft bereits, nur ohne uns. Kein Termin anfragen. Der Champion bekommt die Antwort als kurze Unterlage zum Weitergeben und weiß, wie er Rückfragen beantwortet.'):('Der Account Owner geht die Antwort mit dem Champion durch. Der Champion entscheidet, ob und wann '+r.nm+' dazukommt, zum Beispiel in einem kurzen Termin, den er selbst einlädt.')));
+const r2=h('div','dr-act');r2.append(btn(sh?'Übergabe protokollieren':'Briefing protokollieren','',()=>{s.briefed=true;update()}));r2.append(h('span','dr-note',s.cov==='partial'?'Achtung: Ein Teil der Frage ist offen. Das Briefing ist möglich, das Risiko bleibt.':'Datum, Teilnehmende und offene Punkte landen im CRM.'));a.append(r2)}
+else if(s.cov==='full'){a=act('okbox','Ergebnis','Vorbereitet');a.append(h('p',null,s.gap==='shadow'?'Als stille Prüfung eingeordnet, Frage vollständig beantwortet, Entwurf freigegeben, Unterlage übergeben. Im nächsten Call fragt der Account Owner, ob die Prüfung Rückfragen ausgelöst hat.':'Eingeordnet, Frage vollständig beantwortet, Entwurf freigegeben, Champion gebrieft. Im nächsten Call fragt der Account Owner, ob die Antwort im Raum genutzt wurde.'))}
+else{a=act('warnbox','Ergebnis','Gebrieft, aber nicht vollständig vorbereitet');const open=R[k].parts.filter(p=>!covered(k,p)).map(p=>p.t).join(', ');a.append(h('p',null,'Offen: '+open+'. Der Champion kennt die Antwort nur teilweise. Das Risiko bleibt, bis auch dieser Teil beantwortet ist.'));
+const r2=h('div','dr-act');if(r.fill)r2.append(btn('Offenen Teil jetzt ergänzen','warn',()=>{s.filled=true;s.cov='full';s.approved=false;s.briefed=false;update()}));r2.append(h('span','dr-note','Wird der Entwurf geändert, braucht er eine neue Freigabe und ein neues Briefing.'));a.append(r2)}
+d.append(a)}
+function update(){summary();renderMap();renderDetail()}
+$('reset').onclick=()=>{init();sel='br';update()};
+init();update();
+
+
+/* ---------- Ebene 2: Verlust-Diagnose ---------- */
+(function(){
+const stages=['Traffic','Leads','Qualifiziert','SQL','Opportunity','Deal'];
+const SC={
+audience:{title:'Kampagne A · Auswertung',n:[18400,212,19,4,2,0],lossAt:2,badge:['review','VORSCHLAG'],head:'Verloren direkt nach dem Formular.',desc:'91 % der Leads passen nicht zum Ziel. Die Kampagne erreicht viele Menschen, aber kaum Unternehmen, die das Produkt kaufen würden.',why:'143 von 212 Leads arbeiten in Unternehmen mit weniger als 10 Mitarbeitenden. Die Zielgruppe wurde nach Interessen definiert statt nach Firmengröße.',conf:'Hoch · 212 Leads, Firmengröße bei 96 % erfasst',next:'Zielgruppe auf Unternehmen mit 50–500 Mitarbeitenden eingrenzen, Firmengröße als Pflichtfeld. Erwartung: weniger Leads, deutlich mehr qualifizierte.',dec:'Vorschlag · wartet auf Entscheidung von Marketing'},
+room:{title:'Kampagne B · Auswertung',n:[9800,96,41,22,14,1],lossAt:5,badge:['blocked','→ EBENE 3'],head:'Verloren zwischen Angebot und Abschluss.',desc:'Die Kampagne bringt die richtigen Unternehmen, der Pilot überzeugt. Dann sagen 13 von 14 Opportunities ab, meist mit „verschoben“ oder „kein Budget“.',why:'In 9 der 13 Absagen wurden vorher Betriebsrat, Finanzen oder Geschäftsführung in Gesprächen erwähnt, aber nie getroffen. Der Verlustgrund im CRM passt nicht zu dem, was in den Gesprächen stand.',conf:'Mittel · 13 Absagen, Muster in 9 davon',next:'Kein Preis- und kein Zielgruppenproblem. Für laufende Deals in dieser Phase Ebene 3 einschalten: stille Vetorollen einordnen und Antworten vorbereiten.',dec:'Übergabe an Ebene 3 · Decision Portability',handoff:true},
+broken:{title:'Kampagne C · Auswertung',n:[15200,180,null,null,null,null],lossAt:-1,badge:['blocked','KEINE DIAGNOSE'],head:'Die Frage ist nicht beantwortbar.',desc:'Ab dem CRM verliert sich die Spur. ANTERA kann nicht sagen, warum niemand gekauft hat, und erfindet keine Antwort.',why:'74 von 180 Leads sind im CRM keiner Kampagne zugeordnet. Verlustgründe werden nicht erfasst. Qualifizierung und Deals lassen sich nicht zurückverfolgen.',conf:'Keine · Datenkette unvollständig',next:'Mit Ebene 1 wäre diese Kampagne vor dem Start BLOCKED gewesen. Zuordnung und Verlustgrund reparieren, dann messbar neu starten.',dec:'Blockiert · Owner: Sales Ops'},
+early:{title:'Kampagne D · Zwischenstand',n:[11000,130,38,12,5,0],lossAt:-1,open:true,badge:['wait','ZU FRÜH'],head:'Noch kein Urteil über Deals.',desc:'Null Deals sind hier kein Fehler. Der typische Verkaufszyklus beträgt 90 Tage, die Kampagne läuft seit drei Wochen. 5 Opportunities sind noch offen.',why:'Frühindikatoren: 29 % der Leads sind qualifiziert, 12 SQLs in drei Wochen. Für eine Aussage über Abschlüsse reicht die Zeit noch nicht.',conf:'Gering für Deals · Frühindikatoren belastbar',next:'Nichts ändern, Budget nicht hochfahren. In sechs Wochen erneut bewerten, wenn die ersten Opportunities entschieden sind.',dec:'Wiedervorlage in 6 Wochen, ANTERA erinnert selbst'}};
+const fmt=n=>n.toLocaleString('de-DE');
+function show(k){const d=SC[k];const max=Math.log10(d.n[0]+1);
+$('dTitle').textContent=d.title;const b=$('dBadge');b.className='status '+d.badge[0];b.textContent=d.badge[1];
+$('dHead').textContent=d.head;$('dDesc').textContent=d.desc;$('dWhy').textContent=d.why;$('dConf').textContent=d.conf;$('dNext').textContent=d.next;$('dDec').textContent=d.dec;$('toL3').hidden=!d.handoff;
+const f=$('funnel');f.replaceChildren();
+d.n.forEach((n,i)=>{const row=h('div','fr');let w,num,pct='';
+if(n===null){row.classList.add('unk');w=70;num='?';pct='–'}
+else{w=n===0?3:Math.max(5,Math.log10(n+1)/max*100);num=fmt(n);const p=d.n[i-1];
+if(i>0&&p){const r=n/p;pct=i===d.lossAt?'−'+Math.round((1-r)*100)+' %':(r>0&&r*100<10?(r*100).toFixed(1).replace('.',','):Math.round(r*100))+' %'}
+if(i===d.lossAt)row.classList.add('loss');
+if(d.open&&i===stages.length-1){row.classList.add('open');num='0 · offen';pct=''}}
+const bar=h('div','bar');const fill=h('i');bar.append(fill);row.append(h('span','lab',stages[i]),bar,h('span','n',num),h('span','pct',pct));f.append(row);requestAnimationFrame(()=>{fill.style.width=w+'%'})})}
+document.querySelectorAll('.scen button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.scen button').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));show(btn.dataset.s)}));
+show('audience')})();
+
+/* ---------- Architektur-Animation: zwei Wege ---------- */
+(function(){const svg=$('archSvg'),pk=$('packet'),cap=$('capText'),tag=$('capTag');if(!svg)return;
+const ROUTES=[
+{path:'routeA',tag:'LIVE · EBENE 1',cls:'a',stops:[['n-web','Ein Formular-Eintrag der neuen Kampagne Q4b kommt an, nur lesend.','#70c8bc'],['n-auf','Einwilligung geprüft, pseudonymisiert, in der EU gespeichert.','#70c8bc'],['n-graph','Verknüpft mit Kampagne, Lead und Pflichtfeldern.','#c3d1ce'],['n-ctl','Prüfkette: Ein Pflichtfeld erreicht das CRM nicht. BLOCKED, Ausgaben automatisch pausiert.','#ff5f73'],['n-inv','Der Investigator findet die Ursache: geändertes Feldmapping nach dem letzten Formular-Update.','#f96c58'],['n-own','Der Owner repariert und prüft erneut. Wieder starten darf nur ein Mensch.','#eef4f2'],['n-o1','Launch-Check: wieder GO, mit vollständigem Protokoll.','#70c8bc']]},
+{path:'routeB',tag:'LIVE · EBENE 3',cls:'b',stops:[['n-call','Ein Kundengespräch vom 02.06. wird abgerufen, mit Einwilligung.','#70c8bc'],['n-auf','Einwilligung geprüft, pseudonymisiert, in der EU gespeichert.','#70c8bc'],['n-graph','Verknüpft mit Deal, Personen und Terminen.','#c3d1ce'],['n-ext','KI findet: „Betriebsrat“ wird erwähnt. Gespeichert mit Zitat, Sprecher und Datum.','#f96c58'],['n-ctl','Veto-Profil: Betriebsrat erwähnt, aber nicht sichtbar beteiligt. Zunächst ein Hinweis.','#70c8bc'],['n-inv','Der Investigator entwirft eine Antwort aus der Claim-Bibliothek.','#f96c58'],['n-own','Der Account Owner ordnet ein, gibt frei und brieft den Champion.','#eef4f2'],['n-o4','Entscheidungs-Landkarte: vorbereitet für den Raum, in dem du nicht bist.','#70c8bc']]}];
+ROUTES.forEach(r=>{r.el=$(r.path);r.len=r.el.getTotalLength();r.nodes=r.stops.map(([id,t,c])=>{const el=$(id);const g=a=>parseFloat(el.getAttribute(a));return{el,b:{x:g('x'),y:g('y'),width:g('width'),height:g('height')},t,c}})});
+const speed=165,hold=1700;const core=pk.querySelector('.pk-core'),glow=pk.querySelector('.pk-glow');
+let ri=0,cur=-1,start=null,raf=null,running=false;
+function setCap(t){cap.style.opacity=0;setTimeout(()=>{cap.textContent=t;cap.style.opacity=1},180)}
+function begin(){const r=ROUTES[ri];tag.textContent=r.tag;tag.className='live '+r.cls;pk.style.opacity=1;document.querySelectorAll('#archSvg .on').forEach(e=>e.classList.remove('on'));cur=0;const n=r.nodes[0];n.el.classList.add('on');core.setAttribute('fill',n.c);glow.setAttribute('fill',n.c);setCap(n.t)}
+function frame(ts){const r=ROUTES[ri],dur=r.len/speed*1000;if(!start){start=ts;begin()}const el=ts-start;
+if(el>dur+hold){ri=(ri+1)%ROUTES.length;start=ts;begin();raf=requestAnimationFrame(frame);return}
+const p=r.el.getPointAtLength(Math.min(el,dur)/dur*r.len);pk.setAttribute('transform','translate('+p.x+' '+p.y+')');
+if(el>dur)pk.style.opacity=Math.max(0,1-(el-dur)/600);
+let hit=-1;r.nodes.forEach((n,i)=>{const b=n.b;if(p.x>=b.x-2&&p.x<=b.x+b.width+2&&p.y>=b.y-2&&p.y<=b.y+b.height+2)hit=i});
+if(hit>=0&&hit!==cur){if(cur>=0)r.nodes[cur].el.classList.remove('on');cur=hit;r.nodes[hit].el.classList.add('on');core.setAttribute('fill',r.nodes[hit].c);glow.setAttribute('fill',r.nodes[hit].c);setCap(r.nodes[hit].t)}
+else if(hit<0&&cur>=0&&el<dur){r.nodes[cur].el.classList.remove('on')}
+raf=requestAnimationFrame(frame)}
+function play(){if(running)return;running=true;pk.style.display='';start=null;raf=requestAnimationFrame(frame)}
+function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null}
+const steps=[...document.querySelectorAll('#archStack .as-step')];let si=0,tmr=null;
+function stackTick(){steps.forEach(s=>s.classList.remove('on'));steps[si].classList.add('on');si=(si+1)%steps.length}
+function playStack(){if(!tmr){stackTick();tmr=setInterval(stackTick,1500)}}function stopStack(){clearInterval(tmr);tmr=null}
+if(RM){cap.textContent='Zwei Wege: Formular → Controller stoppt → Owner startet neu → Launch-Check. Gespräch → KI-Extraktion → Veto-Profil → Investigator → Owner → Entscheidungs-Landkarte.';return}
+const io=new IntersectionObserver(es=>es.forEach(e=>{const mobile=window.innerWidth<=820;if(e.isIntersecting){if(mobile){stop();playStack()}else{stopStack();play()}}else{stop();stopStack()}}),{threshold:.25});
+io.observe(document.querySelector('.arch-wrap'))})();
+
+</script></body></html>
