@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090d0e">
+<title>VERAX MERIDIAN · Kein Launch ohne Beleg</title>
+<meta name="description" content="VERAX MERIDIAN ist ein selbst gehostetes Open-Source-Werkzeug: Prüfungen, namentliche Freigabe und ein manipulationssicheres Protokoll entscheiden vor jedem Launch über GO, NEEDS REVIEW oder BLOCKED.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aether Hive">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="VERAX MERIDIAN · Kein Launch ohne Beleg">
+<meta property="og:description" content="Open-Source-Launch-Gate: Prüfungen, namentliche Freigabe, Protokoll. Selbst gehostet, Apache-2.0.">
+<meta property="og:url" content="https://darealone.github.io/aether-hive/verax/">
+<meta property="og:image" content="https://darealone.github.io/aether-hive/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://darealone.github.io/aether-hive/verax/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--accent:#b9fa65;--accent-ink:#142010;--bg:#090d0e;--panel:#111918;--panel2:#162120;--ink:#f2f5ef;--muted:#a2b2ad;--line:#2b3d39;--line2:#3b5148;--go:#b9fa65;--block:#ff8e85;--review:#ffcb86;--info:#65ddc9;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:Inter,"Avenir Next",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f5f7f4;--panel:#fff;--panel2:#eef3ef;--ink:#132019;--muted:#566a62;--line:#d7e0db;--line2:#b9c8c0;--go:#3d7a07;--block:#c23a2f;--review:#a66300;--info:#0f7a6b;color-scheme:light}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:8px 12px;border-radius:8px;z-index:50}.skip:focus{left:12px}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:20px;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:800 12px var(--mono);flex:none}
+.brand b{font-weight:850;letter-spacing:-.03em;font-size:16px;line-height:1;display:block}.brand small{display:block;font:10px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+nav.links{display:flex;gap:2px;margin-left:auto}nav.links a{text-decoration:none;color:var(--muted);font-size:13.5px;padding:7px 10px;border-radius:9px}nav.links a:hover{color:var(--ink);background:var(--panel2)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:99px;padding:10px 18px;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}.btn.ghost:hover{border-color:var(--accent)}
+.btn.sm{padding:6px 13px;font-size:12.5px}
+@media(max-width:860px){nav.links{display:none}.top .btn.sm{margin-left:auto}}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.kicker{font:11.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(2.2rem,5.4vw,3.9rem);letter-spacing:-.05em;line-height:1.02;margin:0 0 18px}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.04em;line-height:1.1;margin:0 0 12px}
+h3{font-size:16px;letter-spacing:-.01em;margin:0 0 6px}
+.lead{font-size:1.15rem;color:var(--muted);max-width:640px;margin:0 0 26px}
+.sub{color:var(--muted);max-width:700px;margin:0 0 32px}
+.muted{color:var(--muted)}.mono{font-family:var(--mono)}
+.hero{padding:76px 0 64px}
+.herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+@media(max-width:920px){.herogrid{grid-template-columns:1fr}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.facts{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;font:12px var(--mono);color:var(--muted)}.facts span:before{content:"✓ ";color:var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0}
+.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid;border-radius:99px;padding:5px 12px;font:700 12px var(--mono);letter-spacing:.04em;white-space:nowrap}
+.badge:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-GO{color:var(--go);border-color:color-mix(in srgb,var(--go) 50%,transparent);background:color-mix(in srgb,var(--go) 9%,transparent)}
+.s-BLOCKED{color:var(--block);border-color:color-mix(in srgb,var(--block) 50%,transparent);background:color-mix(in srgb,var(--block) 9%,transparent)}
+.s-NEEDS_REVIEW{color:var(--review);border-color:color-mix(in srgb,var(--review) 50%,transparent);background:color-mix(in srgb,var(--review) 9%,transparent)}
+.tag{display:inline-block;font:10.5px var(--mono);letter-spacing:.06em;border:1px solid var(--line2);border-radius:99px;padding:1px 8px;color:var(--muted)}
+.tag.crit{color:var(--block);border-color:color-mix(in srgb,var(--block) 40%,transparent)}
+/* hero preview */
+.preview .head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:16px}
+.preview .head b{display:block;font-size:17px;letter-spacing:-.02em}.preview .head small{font:11px var(--mono);color:var(--muted)}
+.chk{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 12px var(--mono)}
+.dot.pass{background:color-mix(in srgb,var(--go) 18%,transparent);color:var(--go)}
+.dot.fail{background:color-mix(in srgb,var(--block) 18%,transparent);color:var(--block)}
+.dot.wait{background:color-mix(in srgb,var(--review) 18%,transparent);color:var(--review)}
+.preview .foot{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line2);font:11.5px var(--mono);color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.chk.flip{animation:flip .5s ease}@keyframes flip{from{opacity:.2;transform:translateX(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.chk.flip{animation:none}html{scroll-behavior:auto}}
+/* verdicts */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:820px){.three{grid-template-columns:1fr}}
+.verdict p{margin:10px 0 0;color:var(--muted);font-size:14.5px}
+.verdict.go{border-top:3px solid var(--go)}.verdict.rv{border-top:3px solid var(--review)}.verdict.bl{border-top:3px solid var(--block)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:s;list-style:none;padding:0;margin:0}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}@media(max-width:560px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.steps li:before{content:"0" counter(s);font:700 12px var(--mono);color:var(--accent);display:block;margin-bottom:10px}
+.steps p{margin:0;color:var(--muted);font-size:14.5px}
+/* simulator */
+.sim{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}@media(max-width:900px){.sim{grid-template-columns:1fr}}
+.simrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.simrow:first-of-type{border-top:0}
+.simrow .lbl{font-size:14.5px}.simrow .lbl small{display:block;color:var(--muted);font-size:12.5px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:99px;overflow:hidden}
+.seg button{background:transparent;border:0;color:var(--muted);font:600 12px var(--mono);padding:6px 10px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--panel2);color:var(--ink)}
+.seg button[data-v=pass][aria-pressed=true]{color:var(--go)}.seg button[data-v=fail][aria-pressed=true]{color:var(--block)}.seg button[data-v=unknown][aria-pressed=true],.seg button[data-v=not_run][aria-pressed=true]{color:var(--review)}
+.exc{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);margin-top:6px}
+select{background:var(--bg);color:var(--ink);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;max-width:100%}
+.result{position:sticky;top:80px}
+.result .big{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.result .big .badge{font-size:15px;padding:8px 16px}
+.reasons{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.reasons li{font-size:14px;padding:10px 12px;border-radius:12px;background:var(--panel2);border-left:3px solid var(--line2)}
+.reasons li code{font:11px var(--mono);color:var(--muted);display:block;margin-bottom:2px}
+.reasons li.block{border-left-color:var(--block)}.reasons li.review{border-left-color:var(--review)}.reasons li.info{border-left-color:var(--info)}.reasons li.ok{border-left-color:var(--go)}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th,.tbl td{text-align:left;padding:12px 10px;border-top:1px solid var(--line);vertical-align:top}
+.tbl th{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:0}
+.tbl td:first-child{white-space:nowrap}
+.scroll{overflow-x:auto}
+/* install */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:820px){.two{grid-template-columns:1fr}}
+pre{margin:12px 0 0;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;overflow-x:auto;font:12.5px/1.6 var(--mono);position:relative}
+pre .c{color:var(--muted)}
+.copy{position:absolute;top:8px;right:8px;background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:8px;font:11px var(--mono);padding:3px 8px;cursor:pointer}
+.copy:hover{color:var(--ink)}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:900px){.feat{grid-template-columns:1fr 1fr}}@media(max-width:560px){.feat{grid-template-columns:1fr}}
+.feat .panel p{margin:0;color:var(--muted);font-size:14.5px}
+/* ecosystem */
+.eco{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:820px){.eco{grid-template-columns:1fr}}
+.eco a{text-decoration:none}.eco .panel{height:100%;transition:border-color .15s}.eco a:hover .panel{border-color:var(--line2)}
+.eco .panel p{margin:6px 0 0;color:var(--muted);font-size:14.5px}
+.eco .here{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+/* faq */
+details{border-top:1px solid var(--line);padding:16px 0}details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}
+summary:after{content:"+";font:600 18px var(--mono);color:var(--muted)}details[open] summary:after{content:"−"}
+details p{color:var(--muted);margin:10px 0 0;max-width:780px}
+footer{padding:36px 0 48px;color:var(--muted);font-size:13.5px}
+footer .row{justify-content:space-between}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Zum Inhalt</a>
+<header class="top">
+  <div class="wrap topin">
+    <a class="brand" href="#top" aria-label="VERAX MERIDIAN, nach oben"><span class="logo">VM</span><span><b>VERAX MERIDIAN</b><small>Launch-Readiness-Gate</small></span></a>
+    <nav class="links" aria-label="Seitennavigation">
+      <a href="#ablauf">Ablauf</a><a href="#simulator">Ausprobieren</a><a href="#regeln">Regeln</a><a href="#install">Installation</a><a href="#faq">FAQ</a><a href="../">← Aether Hive</a>
+    </nav>
+    <a class="btn sm" href="https://github.com/darealone/VERAX">GitHub</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap herogrid">
+    <div>
+      <p class="kicker">Open Source · Apache-2.0 · Selbst gehostet</p>
+      <h1>Kein Launch<br>ohne Beleg.</h1>
+      <p class="lead">VERAX MERIDIAN prüft vor dem Start, ob alles, wovon ein Launch abhängt, wirklich funktioniert, und gibt nur mit namentlicher Freigabe grünes Licht. Jede Entscheidung landet in einem Protokoll, das sich nicht unbemerkt ändern lässt.</p>
+      <div class="row">
+        <a class="btn" href="#install">In 2 Minuten starten</a>
+        <a class="btn ghost" href="https://github.com/darealone/VERAX">Code ansehen</a>
+      </div>
+      <div class="facts"><span>Keine Abhängigkeiten</span><span>Eine SQLite-Datei</span><span>Deutsch &amp; Englisch</span><span>CI-tauglich</span></div>
+    </div>
+    <div class="panel preview" aria-label="Beispiel: Status eines Launches">
+      <div class="head">
+        <div><b>Webinar-Kampagne Q1</b><small>Fingerprint 3f9a…c21e · Regeln 2026.1</small></div>
+        <span class="badge s-BLOCKED" id="pvBadge">BLOCKED</span>
+      </div>
+      <div class="chk"><span class="dot pass">✓</span><span>Landingpage erreichbar <span class="tag crit">kritisch</span></span><span class="mono muted" style="font-size:11px">http</span></div>
+      <div class="chk"><span class="dot pass">✓</span><span>Routing-API liefert Queue <span class="tag crit">kritisch</span></span><span class="mono muted" style="font-size:11px">json</span></div>
+      <div class="chk" id="pvRound"><span class="dot fail" id="pvDot">✕</span><span id="pvText">Testlead kommt im CRM an <span class="tag crit">kritisch</span></span><span class="mono muted" style="font-size:11px">roundtrip</span></div>
+      <div class="chk"><span class="dot wait" id="pvAppDot">…</span><span id="pvApp">Freigabe durch zweite Person</span><span class="mono muted" style="font-size:11px">approval</span></div>
+      <div class="foot"><span id="pvReason">CHECK_FAILED · Feld company_size fehlt im CRM</span><span>Protokoll ✓ verifiziert</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ergebnis">
+  <div class="wrap">
+    <p class="kicker">Drei mögliche Ergebnisse</p>
+    <h2>Eine klare Antwort statt „sollte passen“.</h2>
+    <p class="sub">Dieselben Eingaben ergeben immer dasselbe Ergebnis. Es gibt keine KI-Schätzung und keinen Ermessensspielraum, nur feste, versionierte Regeln.</p>
+    <div class="three">
+      <div class="panel verdict go"><span class="badge s-GO">GO</span><p>Alle kritischen Prüfungen sind frisch bestanden, offene Lücken sind dokumentiert, und eine zweite Person hat genau diesen Stand freigegeben.</p></div>
+      <div class="panel verdict rv"><span class="badge s-NEEDS_REVIEW">NEEDS REVIEW</span><p>Technisch steht nichts im Weg, aber etwas braucht einen Menschen: eine fehlende Freigabe oder eine nicht kritische Prüfung ohne dokumentierte Ausnahme.</p></div>
+      <div class="panel verdict bl"><span class="badge s-BLOCKED">BLOCKED</span><p>Eine kritische Prüfung ist fehlgeschlagen, nicht verifizierbar, veraltet oder nie gelaufen, oder die Freigabe wurde abgelehnt. Das lässt sich nicht wegklicken.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ablauf">
+  <div class="wrap">
+    <p class="kicker">Ablauf</p>
+    <h2>Vom Plan zur belegten Freigabe.</h2>
+    <p class="sub">VERAX ersetzt keine Projekttools. Es sitzt an einer Stelle: unmittelbar vor dem Go-live.</p>
+    <ol class="steps">
+      <li><h3>Prüfungen festlegen</h3><p>Für jeden Launch: Was muss funktionieren? Seite erreichbar, API antwortet richtig, Testdatensatz kommt an, oder eine Person bestätigt es.</p></li>
+      <li><h3>Automatisch ausführen</h3><p>Per Klick, nach Zeitplan oder aus der CI-Pipeline. Fehler und Zeitüberschreitungen zählen als „unbekannt“, nie als bestanden.</p></li>
+      <li><h3>Freigabe einholen</h3><p>Eine zweite Person gibt frei, nicht die Verantwortliche selbst. Die Freigabe gilt nur für genau diesen Stand der Prüfungen.</p></li>
+      <li><h3>Protokollieren</h3><p>Jede Änderung, jeder Lauf und jede Entscheidung wird verkettet gespeichert. <span class="mono">verax verify-audit</span> erkennt Eingriffe.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="simulator">
+  <div class="wrap">
+    <p class="kicker">Ausprobieren</p>
+    <h2>Die Regeln, live.</h2>
+    <p class="sub">Dieser Simulator nutzt dieselbe Entscheidungslogik wie VERAX selbst (Regelversion 2026.1). Ändere Ergebnisse und Freigabe und sieh, was passiert.</p>
+    <div class="sim">
+      <div class="panel" id="simChecks" aria-label="Prüfungen"></div>
+      <div class="panel result" aria-live="polite">
+        <div class="big"><b>Ergebnis</b><span class="badge" id="simBadge"></span></div>
+        <label class="mono muted" for="simApproval" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase">Freigabe</label>
+        <div style="margin:6px 0 16px"><select id="simApproval">
+          <option value="none">Keine Freigabe</option>
+          <option value="valid" selected>Freigegeben von einer zweiten Person</option>
+          <option value="self">Freigegeben von der Verantwortlichen selbst</option>
+          <option value="stale">Freigegeben, danach Prüfung geändert</option>
+          <option value="expired">Freigegeben vor mehr als 14 Tagen</option>
+          <option value="rejected">Abgelehnt</option>
+        </select></div>
+        <ul class="reasons" id="simReasons"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="regeln">
+  <div class="wrap">
+    <p class="kicker">Regeln</p>
+    <h2>Was blockiert, was geprüft werden muss.</h2>
+    <p class="sub">Die Regeln stehen im Code, sind versioniert und durch Tests abgesichert. Jede Entscheidung speichert die Regelversion, mit der sie getroffen wurde.</p>
+    <div class="panel scroll">
+      <table class="tbl">
+        <thead><tr><th>Ergebnis</th><th>Wann</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge s-BLOCKED">BLOCKED</span></td><td>Eine kritische Prüfung ist fehlgeschlagen, nicht verifizierbar, nie gelaufen oder älter als 24 Stunden (einstellbar).</td></tr>
+          <tr><td><span class="badge s-BLOCKED">BLOCKED</span></td><td>Der Launch hat überhaupt keine kritische Prüfung.</td></tr>
+          <tr><td><span class="badge s-BLOCKED">BLOCKED</span></td><td>Die letzte Entscheidung zu genau diesem Stand ist eine Ablehnung.</td></tr>
+          <tr><td><span class="badge s-NEEDS_REVIEW">NEEDS REVIEW</span></td><td>Eine nicht kritische Prüfung ist nicht bestanden und hat keine dokumentierte, gültige Ausnahme.</td></tr>
+          <tr><td><span class="badge s-NEEDS_REVIEW">NEEDS REVIEW</span></td><td>Es gibt keine gültige Freigabe: fehlt, ist abgelaufen (14 Tage), gehört zu einem älteren Stand oder kommt von der Verantwortlichen selbst (Vier-Augen-Prinzip).</td></tr>
+          <tr><td><span class="badge s-GO">GO</span></td><td>Sonst.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="feat" style="margin-top:14px">
+      <div class="panel"><h3>Kein Überstimmen</h3><p>Kritische Prüfungen lassen sich nicht per Ausnahme abhaken, und blockierte Launches nicht freigeben.</p></div>
+      <div class="panel"><h3>Freigabe mit Fingerabdruck</h3><p>Ein Hash über Umfang und alle Prüfdefinitionen. Wird danach etwas geändert, ist die Freigabe veraltet.</p></div>
+      <div class="panel"><h3>Review mit Namen</h3><p>NEEDS REVIEW wird einer Person mit konkreter Frage und Frist zugewiesen. Überfällig heißt markiert, nicht freigegeben.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pruefarten">
+  <div class="wrap">
+    <p class="kicker">Prüfarten</p>
+    <h2>Vier Arten, eine Kette zu belegen.</h2>
+    <p class="sub">Zugangsdaten bleiben außerhalb der Konfiguration: <span class="mono">${ENV:NAME}</span> wird erst beim Lauf aufgelöst.</p>
+    <div class="panel scroll">
+      <table class="tbl">
+        <thead><tr><th>Typ</th><th>Belegt</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">http</td><td>Eine Seite ist erreichbar, landet auf der richtigen URL und enthält den erwarteten Text.</td><td class="muted">Anzeige → Landingpage</td></tr>
+          <tr><td class="mono">json</td><td>Eine API liefert die erwarteten Werte.</td><td class="muted">Routing-Vorschau liefert <span class="mono">queue = inbound-sales</span></td></tr>
+          <tr><td class="mono">roundtrip</td><td>Ein synthetischer Testdatensatz geht vorne rein und kommt hinten mit allen Pflichtfeldern an.</td><td class="muted">Formular → CRM-Datensatz</td></tr>
+          <tr><td class="mono">manual</td><td>Eine benannte Person bestätigt das Ergebnis mit schriftlichem Beleg.</td><td class="muted">Tracking im Debug-View geprüft</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <p class="kicker">Installation</p>
+    <h2>Läuft auf eurem Server. Gehört euch.</h2>
+    <p class="sub">Voraussetzung ist Node.js 22.13 oder neuer, oder Docker. Es gibt keine npm-Pakete zu installieren und keine Cloud-Konten.</p>
+    <div class="two">
+      <div class="panel"><h3>1 · Demo ansehen</h3><p class="muted" style="margin:0;font-size:14.5px">Startet mit Beispiel-Launch, drei Testnutzern und einem simulierten CRM, das ein Feld verliert.</p>
+<pre><code>git clone https://github.com/darealone/VERAX.git
+cd VERAX
+node bin/verax.js serve --demo
+<span class="c"># → http://127.0.0.1:8080</span></code></pre></div>
+      <div class="panel"><h3>2 · Für das Team einrichten</h3><p class="muted" style="margin:0;font-size:14.5px">Konfiguration anlegen, Namen, Farbe und Regeln anpassen, dann Admin-Konto im Browser erstellen.</p>
+<pre><code>node bin/verax.js init
+node bin/verax.js serve --config verax.config.json \
+  --host 0.0.0.0 --port 8080</code></pre></div>
+      <div class="panel"><h3>3 · Mit Docker betreiben</h3><p class="muted" style="margin:0;font-size:14.5px">Daten liegen in einem Volume als eine SQLite-Datei. Hinter HTTPS betreiben.</p>
+<pre><code>cp examples/verax.config.example.json verax.config.json
+docker compose up -d</code></pre></div>
+      <div class="panel"><h3>4 · In die Pipeline hängen</h3><p class="muted" style="margin:0;font-size:14.5px">Mit API-Token: Prüfungen ausführen und den Build je nach Ergebnis stoppen.</p>
+<pre><code>VERAX_URL=https://verax.example.com \
+VERAX_TOKEN=vxm_… node bin/verax.js run 12
+<span class="c"># 0 = GO · 1 = BLOCKED · 2 = NEEDS REVIEW · 3 = Fehler</span></code></pre></div>
+    </div>
+    <div class="feat" style="margin-top:14px">
+      <div class="panel"><h3>Rollen</h3><p>Admin, Approver, Member. Freigeben dürfen nur Approver, und nie für den eigenen Launch.</p></div>
+      <div class="panel"><h3>Sicher im Standard</h3><p>scrypt-Passwörter, HttpOnly-Sessions, CSRF-Schutz, strikte Content-Security-Policy, Login-Drosselung.</p></div>
+      <div class="panel"><h3>Eigenes Branding</h3><p>Produktname, Akzentfarbe und Vorlagen per Konfigurationsdatei. Oberfläche auf Deutsch und Englisch.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="system">
+  <div class="wrap">
+    <p class="kicker">Teil von Aether Hive</p>
+    <h2>Drei Systeme, eine Methode.</h2>
+    <p class="sub">VERAX ist der erste installierbare Baustein. ANTERA und PARALLAX sind Konzepte, die darauf aufbauen.</p>
+    <div class="eco">
+      <div class="panel here"><span class="tag">jetzt verfügbar</span><h3 style="margin-top:10px">VERAX MERIDIAN</h3><p>Prüft vor dem Launch, ob die Kette hält, und gibt nur mit Beleg und Freigabe GO.</p></div>
+      <a href="../antera/"><div class="panel"><span class="tag">Konzept</span><h3 style="margin-top:10px">ANTERA →</h3><p>Sichert Entscheidungen im laufenden Betrieb von Marketing und Vertrieb ab.</p></div></a>
+      <a href="../parallax/"><div class="panel"><span class="tag">Prototyp</span><h3 style="margin-top:10px">PARALLAX →</h3><p>Prüft, ob das Geschäftsmodell die nächste Marktverschiebung übersteht.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="kicker">Fragen</p>
+    <h2>Gut zu wissen.</h2>
+    <details><summary>Steckt KI in VERAX?</summary><p>Nein, mit Absicht nicht. Version 0.1 entscheidet ausschließlich nach festen Regeln, damit jedes Ergebnis nachvollziehbar und reproduzierbar ist. Hilfen beim Untersuchen von Fehlern sind für spätere Versionen geplant, die Entscheidung bleibt regelbasiert.</p></details>
+    <details><summary>Was kostet es?</summary><p>Nichts. VERAX MERIDIAN steht unter der Apache-2.0-Lizenz. Ihr dürft es nutzen, anpassen und in eigene Produkte einbauen.</p></details>
+    <details><summary>Wohin gehen unsere Daten?</summary><p>Nirgendwohin. VERAX läuft auf eurem Server und speichert alles in einer lokalen SQLite-Datei. Es gibt kein Tracking und keine Verbindung zu uns. Ausgehende Anfragen macht es nur an die URLs, die ihr selbst als Prüfungen eintragt.</p></details>
+    <details><summary>Wir haben keinen API-Zugang zu unseren Systemen. Bringt es trotzdem etwas?</summary><p>Ja. Mit manuellen Prüfungen bestätigt eine benannte Person jeden Schritt mit Beleg. Freigabe, Vier-Augen-Prinzip und Protokoll funktionieren genauso. Automatisieren lässt sich später Schritt für Schritt.</p></details>
+    <details><summary>Was ist noch nicht fertig?</summary><p>Benachrichtigungen per E-Mail oder Chat, fertige Anbindungen an verbreitete CRM- und Marketing-Tools sowie Single Sign-on. Der Stand ist im Repository dokumentiert.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <span>VERAX MERIDIAN · ein Projekt von <a href="../">Aether Hive</a> · Apache-2.0</span>
+    <span><a href="https://github.com/darealone/VERAX">github.com/darealone/VERAX</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  /* Hero preview: shows the demo story once (CRM fix → checks pass → approval → GO). */
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(id){ return document.getElementById(id); };
+  var story = [
+    function(){ $('pvDot').className='dot pass'; $('pvDot').textContent='✓'; $('pvRound').classList.add('flip');
+      $('pvBadge').className='badge s-NEEDS_REVIEW'; $('pvBadge').textContent='NEEDS REVIEW'; $('pvReason').textContent='APPROVAL_MISSING · wartet auf zweite Person'; },
+    function(){ $('pvAppDot').className='dot pass'; $('pvAppDot').textContent='✓'; $('pvApp').textContent='Freigegeben von Sam (Approver)';
+      $('pvBadge').className='badge s-GO'; $('pvBadge').textContent='GO'; $('pvReason').textContent='Alle Bedingungen erfüllt'; }
+  ];
+  if (!reduce) { setTimeout(story[0], 2600); setTimeout(story[1], 5200); }
+
+  /* Simulator: same logic as src/rules.js (RULES_VERSION 2026.1). */
+  var checks = [
+    { id:1, label:'Landingpage erreichbar', type:'http', critical:true, state:'pass' },
+    { id:2, label:'Testlead kommt im CRM an', type:'roundtrip', critical:true, state:'fail' },
+    { id:3, label:'Danke-Seite zeigt Termin', type:'http', critical:false, state:'pass', exception:false },
+    { id:4, label:'Tracking im Debug-View geprüft', type:'manual', critical:false, state:'not_run', exception:false }
+  ];
+  var STATES = [['pass','bestanden'],['fail','fehlgeschlagen'],['unknown','unbekannt'],['not_run','nicht gelaufen']];
+  var TEXT = {
+    NO_CRITICAL_CHECKS:'Keine kritische Prüfung definiert.',
+    CHECK_FAILED:'Kritische Prüfung fehlgeschlagen: ',
+    CHECK_UNKNOWN:'Kritische Prüfung nicht verifizierbar: ',
+    CHECK_NOT_RUN:'Kritische Prüfung nie gelaufen: ',
+    APPROVAL_REJECTED:'Die Freigabe wurde abgelehnt.',
+    GAP_OPEN:'Offene Lücke ohne Ausnahme: ',
+    GAP_ACCEPTED:'Lücke dokumentiert und akzeptiert: ',
+    APPROVAL_MISSING:'Es fehlt eine Freigabe.',
+    APPROVAL_STALE:'Freigabe gilt für einen älteren Stand der Prüfungen.',
+    APPROVAL_EXPIRED:'Freigabe ist älter als 14 Tage.',
+    APPROVAL_SELF:'Verantwortliche kann nicht selbst freigeben (Vier-Augen-Prinzip).'
+  };
+
+  function evaluate(approval){
+    var reasons = [];
+    var critical = checks.filter(function(c){ return c.critical; });
+    if (!critical.length) reasons.push({ level:'block', code:'NO_CRITICAL_CHECKS' });
+    var code = { fail:'CHECK_FAILED', unknown:'CHECK_UNKNOWN', not_run:'CHECK_NOT_RUN' };
+    critical.forEach(function(c){ if (c.state !== 'pass') reasons.push({ level:'block', code:code[c.state], label:c.label }); });
+    if (approval === 'rejected') reasons.push({ level:'block', code:'APPROVAL_REJECTED' });
+    checks.filter(function(c){ return !c.critical; }).forEach(function(c){
+      if (c.state === 'pass') return;
+      reasons.push(c.exception ? { level:'info', code:'GAP_ACCEPTED', label:c.label } : { level:'review', code:'GAP_OPEN', label:c.label });
+    });
+    var ac = { none:'APPROVAL_MISSING', stale:'APPROVAL_STALE', expired:'APPROVAL_EXPIRED', self:'APPROVAL_SELF' };
+    if (ac[approval]) reasons.push({ level:'review', code:ac[approval] });
+    var has = function(l){ return reasons.some(function(r){ return r.level === l; }); };
+    return { status: has('block') ? 'BLOCKED' : has('review') ? 'NEEDS_REVIEW' : 'GO', reasons: reasons };
+  }
+
+  var box = $('simChecks');
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  function renderChecks(){
+    box.textContent = '';
+    checks.forEach(function(c){
+      var row = el('div','simrow');
+      var lbl = el('div','lbl');
+      lbl.appendChild(document.createTextNode(c.label + ' '));
+      if (c.critical) lbl.appendChild(el('span','tag crit','kritisch'));
+      lbl.appendChild(el('small', null, c.type));
+      if (!c.critical) {
+        var ex = el('label','exc');
+        var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = c.exception;
+        cb.addEventListener('change', function(){ c.exception = cb.checked; update(); });
+        ex.appendChild(cb); ex.appendChild(document.createTextNode('Ausnahme dokumentiert'));
+        lbl.appendChild(ex);
+      }
+      var seg = el('div','seg'); seg.setAttribute('role','group'); seg.setAttribute('aria-label','Ergebnis für ' + c.label);
+      STATES.forEach(function(s){
+        var b = el('button', null, s[0] === 'not_run' ? '–' : s[0] === 'pass' ? '✓' : s[0] === 'fail' ? '✕' : '?');
+        b.type = 'button'; b.dataset.v = s[0]; b.title = s[1]; b.setAttribute('aria-label', s[1]);
+        b.setAttribute('aria-pressed', String(c.state === s[0]));
+        b.addEventListener('click', function(){ c.state = s[0]; renderChecks(); update(); });
+        seg.appendChild(b);
+      });
+      row.appendChild(lbl); row.appendChild(seg); box.appendChild(row);
+    });
+  }
+
+  function update(){
+    var r = evaluate($('simApproval').value);
+    var badge = $('simBadge');
+    badge.className = 'badge s-' + r.status;
+    badge.textContent = r.status === 'NEEDS_REVIEW' ? 'NEEDS REVIEW' : r.status;
+    var ul = $('simReasons'); ul.textContent = '';
+    if (!r.reasons.length) {
+      var ok = el('li','ok'); ok.appendChild(el('code', null, 'GO')); ok.appendChild(document.createTextNode('Alle Bedingungen erfüllt. Der Launch darf starten.')); ul.appendChild(ok);
+    }
+    r.reasons.forEach(function(x){
+      var li = el('li', x.level);
+      li.appendChild(el('code', null, x.code));
+      li.appendChild(document.createTextNode(TEXT[x.code] + (x.label || '')));
+      ul.appendChild(li);
+    });
+  }
+
+  $('simApproval').addEventListener('change', update);
+  renderChecks(); update();
+
+  /* Copy buttons on code blocks */
+  Array.prototype.forEach.call(document.querySelectorAll('pre'), function(pre){
+    var b = el('button','copy','kopieren'); b.type = 'button';
+    b.addEventListener('click', function(){
+      var t = pre.querySelector('code').innerText.split('\n').filter(function(l){ return l.trim().indexOf('#') !== 0; }).join('\n');
+      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){ b.textContent = 'kopiert'; setTimeout(function(){ b.textContent = 'kopieren'; }, 1500); }, function(){ b.textContent = 'markieren'; });
+    });
+    pre.appendChild(b);
+  });
+})();
+</script>
+</body>
+</html>

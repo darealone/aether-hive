@@ -1,10 +1,10 @@
-<p align="center"><img src="social-preview.png" alt="Aether Hive – Zwei Konzepte für agentische KI-Systeme. Eine Methode." width="100%"></p>
+<p align="center"><img src="social-preview.png" alt="Aether Hive – Drei Systeme für verlässliche Entscheidungen. Eine Methode." width="100%"></p>
 
 # Aether Hive
 
-**Zwei Konzepte für agentische KI-Systeme, eine Methode.** ANTERA sichert Entscheidungen im Tagesgeschäft ab, von der Kampagne bis zum Deal. PARALLAX prüft, ob das Geschäftsmodell die nächste Marktverschiebung übersteht.
+**Drei Systeme für verlässliche Entscheidungen, eine Methode.** VERAX MERIDIAN prüft jeden Launch, bevor Geld fließt. ANTERA sichert Entscheidungen im Tagesgeschäft ab, von der Kampagne bis zum Deal. PARALLAX prüft, ob das Geschäftsmodell die nächste Marktverschiebung übersteht.
 
-> **Status:** Konzepte in Entwicklung. Keine fertigen Produkte und keine Spiele. Die Demos zeigen den geplanten Ablauf mit fiktiven bzw. synthetischen Daten, es gibt keine Anbindung an echte Systeme.
+> **Status:** VERAX MERIDIAN ist ein installierbares Open-Source-Werkzeug (Apache-2.0, [Repository](https://github.com/darealone/VERAX)). ANTERA und PARALLAX sind Konzepte in Entwicklung; ihre Demos zeigen den geplanten Ablauf mit fiktiven bzw. synthetischen Daten, ohne Anbindung an echte Systeme.
 
 **Live:** https://darealone.github.io/aether-hive/
 
@@ -12,12 +12,13 @@
 
 ## In short (English)
 
-Two concepts for agentic AI systems from the studio Aether Hive. **ANTERA** protects marketing and sales decisions before launch, after each campaign run and inside live enterprise deals. **PARALLAX** detects structural business-model risks before they show up in the numbers. In both, the agent observes, investigates and prepares; deciding, starting and sending stay with humans. Both are concepts in development with demo data. The pages are in German.
+Three systems for reliable decisions from the studio Aether Hive. **VERAX MERIDIAN** is an installable, open-source launch readiness gate: deterministic checks, named approvals and an audit trail decide GO, BLOCKED or NEEDS REVIEW before a launch. **ANTERA** protects marketing and sales decisions before launch, after each campaign run and inside live enterprise deals. **PARALLAX** detects structural business-model risks before they show up in the numbers. In both, the agent observes, investigates and prepares; deciding, starting and sending stay with humans. ANTERA and PARALLAX are concepts in development with demo data. The pages are in German.
 
-## Die Konzepte
+## Die Systeme
 
 | | Worum es geht | Ansehen | Details |
 |---|---|---|---|
+| **VERAX MERIDIAN** | Open-Source-Werkzeug, das vor jedem Launch die Kette vom Klick bis zum CRM prüft und nur mit namentlicher Freigabe GO gibt. Selbst gehostet. | [Produktseite](https://darealone.github.io/aether-hive/verax/) | [Repository](https://github.com/darealone/VERAX) |
 | **ANTERA** | Agentisches System, das Entscheidungen in Marketing und Vertrieb absichert: Verhindern, Verstehen, Tragbar machen. „Darf stoppen. Nie starten.“ | [Konzeptseite](https://darealone.github.io/aether-hive/antera/) | [README](antera/README.md) |
 | **PARALLAX** | Konzept und Offline-Prototyp, der strukturelle Risiken im Geschäftsmodell erkennt: Wirkpfade, Frühindikatoren, Widerlegungsbedingungen, Experimente. | [Prototyp](https://darealone.github.io/aether-hive/parallax/) | [README](parallax/README.md) |
 
@@ -35,6 +36,7 @@ Der Agent liest, untersucht und entwirft. Entscheiden, starten und senden bleibt
 
 ```
 index.html          Übersichtsseite
+verax/              VERAX MERIDIAN: Produktseite (Simulation), Code im eigenen Repository
 antera/             ANTERA: Konzeptseite, README, Vorschaubild
 parallax/           PARALLAX: Prototyp, README, Vorschaubild
 social-preview.png  Vorschaubild für geteilte Links (1280 × 640)
