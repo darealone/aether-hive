@@ -35,7 +35,6 @@ section{padding:96px 0;border-bottom:1px solid #ffffff0a;scroll-margin-top:40px}
 .kicker:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-right:10px;vertical-align:1px}
 /* hero */
 .hero{min-height:88vh;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;position:relative}
-.hero:before{content:"";position:absolute;inset:0 -100vw;z-index:-1;background-image:linear-gradient(#ffffff06 1px,transparent 1px),linear-gradient(90deg,#ffffff06 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 50% 70% at 60% 40%,#000,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 50% 70% at 60% 40%,#000,transparent 75%)}
 h1{font-size:clamp(2.8rem,5.4vw,4.7rem);line-height:.98;letter-spacing:-.065em;margin:24px 0 30px}h1 span{color:#6f8582}h1 i{color:var(--coral);font-style:normal}
 .lead{font-size:clamp(1.08rem,1.9vw,1.36rem);color:var(--soft);max-width:640px;line-height:1.5;margin:0 0 16px}.lead.sm{font-size:16px;color:var(--muted)}
 .hero-footer{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:34px}
@@ -269,7 +268,6 @@ section>.shell:before,section>.shell:after{content:"";position:absolute;top:-91p
   background:linear-gradient(var(--line2),var(--line2)) 7px 0/1px 15px no-repeat,linear-gradient(var(--line2),var(--line2)) 0 7px/15px 1px no-repeat}
 section>.shell:before{left:-7px}section>.shell:after{right:-7px}
 @media(max-width:1220px){section>.shell:before,section>.shell:after{display:none}}
-.hero:before{background-image:linear-gradient(rgba(187,229,228,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(187,229,228,.05) 1px,transparent 1px)}
 /* kicker as a VERAX chip */
 .kicker{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:rgba(0,30,39,.86);font:600 12px/1 var(--mono);letter-spacing:.16em;align-self:start;justify-self:start;white-space:nowrap}
 .kicker:before{width:8px;height:8px;margin:0;flex:none;box-shadow:0 0 10px var(--coral)}
